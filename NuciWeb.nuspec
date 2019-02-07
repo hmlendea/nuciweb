@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>nuciweb</id>
+    <id>NuciWeb</id>
     <version>$version$</version>
     <title>NuciWeb</title>
     <authors>Horațiu Mlendea</authors>
