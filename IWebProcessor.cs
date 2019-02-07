@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace NuciWeb.Processors
+namespace NuciWeb
 {
     public interface IWebProcessor : IDisposable
     {
