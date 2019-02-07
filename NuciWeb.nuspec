@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
+    <id>nuciweb</id>
     <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <title>NuciWeb</title>
+    <authors>Horațiu Mlendea</authors>
+    <owners>Horațiu Mlendea</owners>
     <licenseUrl>https://github.com/hmlendea/nuciweb/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/hmlendea/nuciweb</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>Selenium wrapper</description>
     <copyright>Copyright 2019</copyright>
     <tags>Selenium</tags>
   </metadata>
