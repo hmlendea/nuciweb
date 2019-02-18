@@ -241,6 +241,9 @@ namespace NuciWeb
         protected string GetSource(By selector) => GetSource(selector, DefaultTimeout);
         protected string GetSource(By selector, TimeSpan timeout) => GetAttribute(selector, "src", timeout);
 
+        protected string GetId(By selector) => GetId(selector, DefaultTimeout);
+        protected string GetId(By selector, TimeSpan timeout) => GetAttribute(selector, "id", timeout);
+
         protected string GetValue(By selector) => GetValue(selector, DefaultTimeout);
         protected string GetValue(By selector, TimeSpan timeout) => GetAttribute(selector, "value", timeout);
 
