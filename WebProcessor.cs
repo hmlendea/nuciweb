@@ -198,6 +198,11 @@ namespace NuciWeb
             }
         }
 
+        protected void Refresh()
+        {
+            driver.Navigate().Refresh();
+        }
+
         protected void ExecuteScript(string script)
         {
             SwitchToTab(CurrentTab);
