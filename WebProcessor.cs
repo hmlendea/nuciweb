@@ -225,6 +225,18 @@ namespace NuciWeb
             alert.Dismiss();
         }
 
+        protected string GetPageSource()
+        {
+            string oldHandle = driver.CurrentWindowHandle;
+            
+            SwitchToTab(CurrentTab);
+            string source = driver.PageSource;
+
+            driver.SwitchTo().Window(oldHandle);
+
+            return source;
+        }
+
         protected List<IWebElement> GetElements(By selector) => GetElements(selector, DefaultTimeout);
 
         protected string GetAttribute(By selector, string attribute) => GetAttribute(selector, attribute, DefaultTimeout);
