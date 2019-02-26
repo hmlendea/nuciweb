@@ -238,6 +238,17 @@ namespace NuciWeb
         }
 
         protected List<IWebElement> GetElements(By selector) => GetElements(selector, DefaultTimeout);
+        protected int GetElementsCount(By selector)
+        {
+            IEnumerable<IWebElement> elements = GetElements(selector);
+
+            if (elements is null)
+            {
+                return 0;
+            }
+
+            return elements.Count();
+        }
 
         protected string GetAttribute(By selector, string attribute) => GetAttribute(selector, attribute, DefaultTimeout);
         protected string GetAttribute(By selector, string attribute, TimeSpan timeout)
