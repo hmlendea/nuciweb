@@ -659,6 +659,14 @@ namespace NuciWeb
             element.SelectByValue(stringValue);
         }
 
+        protected void SelectOptionByText(By selector, string text) => SelectOptionByText(selector, text, DefaultTimeout);
+        protected void SelectOptionByText(By selector, string text, TimeSpan timeout)
+        {
+            SelectElement element = GetSelectElement(selector, timeout);
+
+            element.SelectByText(text);
+        }
+
         protected void SelectRandomOption(By selector) => SelectRandomOption(selector, DefaultTimeout);
         protected void SelectRandomOption(By selector, TimeSpan timeout)
         {
