@@ -210,6 +210,16 @@ namespace NuciWeb
             IJavaScriptExecutor scriptExecutor = (IJavaScriptExecutor)driver;
             scriptExecutor.ExecuteScript(script);
         }
+        
+        protected string GetVariableValue(string variableName)
+        {
+            string script = $"return {variableName};";
+            
+            Wait();
+            
+            IJavaScriptExecutor scriptExecutor = (IJavaScriptExecutor)driver;
+            return (string)scriptExecutor.ExecuteScript(script);
+        }
 
         protected void AcceptAlert() => AcceptAlert(DefaultTimeout);
         protected void AcceptAlert(TimeSpan timeout)
