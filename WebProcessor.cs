@@ -297,6 +297,12 @@ namespace NuciWeb
         protected IEnumerable<string> GetSourceOfMany(By selector) => GetSourceOfMany(selector, DefaultTimeout);
         protected IEnumerable<string> GetSourceOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "src", timeout);
 
+        protected string GetStyle(By selector) => GetStyle(selector, DefaultTimeout);
+        protected string GetStyle(By selector, TimeSpan timeout) => GetAttribute(selector, "style", timeout);
+
+        protected IEnumerable<string> GetStyleOfMany(By selector) => GetStyleOfMany(selector, DefaultTimeout);
+        protected IEnumerable<string> GetStyleOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "style", timeout);
+
         protected string GetId(By selector) => GetId(selector, DefaultTimeout);
         protected string GetId(By selector, TimeSpan timeout) => GetAttribute(selector, "id", timeout);
 
