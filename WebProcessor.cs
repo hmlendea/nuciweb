@@ -9,7 +9,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace NuciWeb
 {
-    public class WebProcessor : IWebProcessor
+    public sealed class WebProcessor : IWebProcessor
     {
         public string Name => GetType().Name.Replace("Processor", string.Empty);
 
@@ -19,7 +19,7 @@ namespace NuciWeb
 
         public string CurrentTab { get; private set; }
 
-        protected Random Random { get; private set; }
+        public Random Random { get; private set; }
 
         static readonly TimeSpan DefaultWaitDuration = TimeSpan.FromMilliseconds(333);
 
@@ -48,7 +48,7 @@ namespace NuciWeb
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -61,8 +61,8 @@ namespace NuciWeb
             }
         }
 
-        protected void SwitchToTab(int index) => SwitchToTab(Tabs[index]);
-        protected void SwitchToTab(string tab)
+        public void SwitchToTab(int index) => SwitchToTab(Tabs[index]);
+        public void SwitchToTab(string tab)
         {
             if (tab == driver.CurrentWindowHandle)
             {
@@ -78,8 +78,8 @@ namespace NuciWeb
             driver.SwitchTo().Window(tab);
         }
 
-        protected string NewTab() => NewTab("about:blank");
-        protected string NewTab(string url)
+        public string NewTab() => NewTab("about:blank");
+        public string NewTab(string url)
         {
             driver.SwitchTo().Window(driver.WindowHandles[0]);
 
@@ -107,7 +107,7 @@ namespace NuciWeb
             return openedWindowTabs;
         }
 
-        protected void CloseTab(string tab)
+        public void CloseTab(string tab)
         {
             if (!Tabs.Contains(tab))
             {
@@ -118,10 +118,10 @@ namespace NuciWeb
             Tabs.Remove(tab);
         }
 
-        protected void GoToUrl(string url) => GoToUrl(url, DefaultHttpAttemptsAmount);
-        protected void GoToUrl(string url, int httpRetries) => GoToUrl(url, httpRetries, DefaultWaitDuration);
-        protected void GoToUrl(string url, TimeSpan retryDelay) => GoToUrl(url, DefaultHttpAttemptsAmount, retryDelay);
-        protected void GoToUrl(string url, int httpRetries, TimeSpan retryDelay)
+        public void GoToUrl(string url) => GoToUrl(url, DefaultHttpAttemptsAmount);
+        public void GoToUrl(string url, int httpRetries) => GoToUrl(url, httpRetries, DefaultWaitDuration);
+        public void GoToUrl(string url, TimeSpan retryDelay) => GoToUrl(url, DefaultHttpAttemptsAmount, retryDelay);
+        public void GoToUrl(string url, int httpRetries, TimeSpan retryDelay)
         {
             if (string.IsNullOrWhiteSpace(CurrentTab))
             {
@@ -166,19 +166,19 @@ namespace NuciWeb
             throw new Exception($"Failed to load the requested URL after {httpRetries} attempts");
         }
 
-        protected void GoToIframe(By selector)
+        public void GoToIframe(By selector)
         {
             string iframeSource = GetSource(selector);
             GoToUrl(iframeSource);
         }
 
-        protected void SwitchToIframe(int index)
+        public void SwitchToIframe(int index)
         {
             SwitchToTab(CurrentTab);
             driver.SwitchTo().Frame(index);
         }
-        protected void SwitchToIframe(By selector) => SwitchToIframe(selector, DefaultTimeout);
-        protected void SwitchToIframe(By selector, TimeSpan timeout)
+        public void SwitchToIframe(By selector) => SwitchToIframe(selector, DefaultTimeout);
+        public void SwitchToIframe(By selector, TimeSpan timeout)
         {
             SwitchToTab(CurrentTab);
 
@@ -198,20 +198,19 @@ namespace NuciWeb
             }
         }
 
-        protected void Refresh()
+        public void Refresh()
         {
             driver.Navigate().Refresh();
         }
 
-        protected void ExecuteScript(string script)
+        public void ExecuteScript(string script)
         {
             SwitchToTab(CurrentTab);
 
             IJavaScriptExecutor scriptExecutor = (IJavaScriptExecutor)driver;
             scriptExecutor.ExecuteScript(script);
         }
-        
-        protected string GetVariableValue(string variableName)
+        public string GetVariableValue(string variableName)
         {
             string script = $"return {variableName};";
             
@@ -221,21 +220,21 @@ namespace NuciWeb
             return (string)scriptExecutor.ExecuteScript(script);
         }
 
-        protected void AcceptAlert() => AcceptAlert(DefaultTimeout);
-        protected void AcceptAlert(TimeSpan timeout)
+        public void AcceptAlert() => AcceptAlert(DefaultTimeout);
+        public void AcceptAlert(TimeSpan timeout)
         {
             IAlert alert = GetAlert(timeout);
             alert.Accept();
         }
 
-        protected void DismissAlert() => DismissAlert(DefaultTimeout);
-        protected void DismissAlert(TimeSpan timeout)
+        public void DismissAlert() => DismissAlert(DefaultTimeout);
+        public void DismissAlert(TimeSpan timeout)
         {
             IAlert alert = GetAlert(timeout);
             alert.Dismiss();
         }
 
-        protected string GetPageSource()
+        public string GetPageSource()
         {
             string oldHandle = driver.CurrentWindowHandle;
             
@@ -247,8 +246,8 @@ namespace NuciWeb
             return source;
         }
 
-        protected List<IWebElement> GetElements(By selector) => GetElements(selector, DefaultTimeout);
-        protected int GetElementsCount(By selector)
+        public IEnumerable<IWebElement> GetElements(By selector) => GetElements(selector, DefaultTimeout);
+        public int GetElementsCount(By selector)
         {
             IEnumerable<IWebElement> elements = GetElements(selector);
 
@@ -260,15 +259,15 @@ namespace NuciWeb
             return elements.Count();
         }
 
-        protected string GetAttribute(By selector, string attribute) => GetAttribute(selector, attribute, DefaultTimeout);
-        protected string GetAttribute(By selector, string attribute, TimeSpan timeout)
+        public string GetAttribute(By selector, string attribute) => GetAttribute(selector, attribute, DefaultTimeout);
+        public string GetAttribute(By selector, string attribute, TimeSpan timeout)
         {
             IWebElement element = GetElement(selector, timeout);
             return element.GetAttribute(attribute);
         }
 
-        protected IEnumerable<string> GetAttributeOfMany(By selector, string attribute) => GetAttributeOfMany(selector, attribute, DefaultTimeout);
-        protected IEnumerable<string> GetAttributeOfMany(By selector, string attribute, TimeSpan timeout)
+        public IEnumerable<string> GetAttributeOfMany(By selector, string attribute) => GetAttributeOfMany(selector, attribute, DefaultTimeout);
+        public IEnumerable<string> GetAttributeOfMany(By selector, string attribute, TimeSpan timeout)
         {
             IEnumerable<IWebElement> elements = GetElements(selector, timeout);
             IEnumerable<string> attributes = elements.Select(x => x.GetAttribute(attribute));
@@ -276,54 +275,54 @@ namespace NuciWeb
             return attributes;
         }
 
-        protected string GetClass(By selector) => GetClass(selector, DefaultTimeout);
-        protected string GetClass(By selector, TimeSpan timeout) => GetAttribute(selector, "class", timeout);
+        public string GetClass(By selector) => GetClass(selector, DefaultTimeout);
+        public string GetClass(By selector, TimeSpan timeout) => GetAttribute(selector, "class", timeout);
 
-        protected IEnumerable<string> GetClassOfMany(By selector) => GetClassOfMany(selector, DefaultTimeout);
-        protected IEnumerable<string> GetClassOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "class", timeout);
+        public IEnumerable<string> GetClassOfMany(By selector) => GetClassOfMany(selector, DefaultTimeout);
+        public IEnumerable<string> GetClassOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "class", timeout);
 
-        protected IEnumerable<string> GetClasses(By selector) => GetClasses(selector, DefaultTimeout);
-        protected IEnumerable<string> GetClasses(By selector, TimeSpan timeout) => GetAttribute(selector, "class", timeout).Split(' ');
+        public IEnumerable<string> GetClasses(By selector) => GetClasses(selector, DefaultTimeout);
+        public IEnumerable<string> GetClasses(By selector, TimeSpan timeout) => GetAttribute(selector, "class", timeout).Split(' ');
 
-        protected string GetHyperlink(By selector) => GetHyperlink(selector, DefaultTimeout);
-        protected string GetHyperlink(By selector, TimeSpan timeout) => GetAttribute(selector, "href", timeout);
+        public string GetHyperlink(By selector) => GetHyperlink(selector, DefaultTimeout);
+        public string GetHyperlink(By selector, TimeSpan timeout) => GetAttribute(selector, "href", timeout);
 
-        protected IEnumerable<string> GetHyperlinkOfMany(By selector) => GetHyperlinkOfMany(selector, DefaultTimeout);
-        protected IEnumerable<string> GetHyperlinkOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "href", timeout);
+        public IEnumerable<string> GetHyperlinkOfMany(By selector) => GetHyperlinkOfMany(selector, DefaultTimeout);
+        public IEnumerable<string> GetHyperlinkOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "href", timeout);
 
-        protected string GetSource(By selector) => GetSource(selector, DefaultTimeout);
-        protected string GetSource(By selector, TimeSpan timeout) => GetAttribute(selector, "src", timeout);
+        public string GetSource(By selector) => GetSource(selector, DefaultTimeout);
+        public string GetSource(By selector, TimeSpan timeout) => GetAttribute(selector, "src", timeout);
 
-        protected IEnumerable<string> GetSourceOfMany(By selector) => GetSourceOfMany(selector, DefaultTimeout);
-        protected IEnumerable<string> GetSourceOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "src", timeout);
+        public IEnumerable<string> GetSourceOfMany(By selector) => GetSourceOfMany(selector, DefaultTimeout);
+        public IEnumerable<string> GetSourceOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "src", timeout);
 
-        protected string GetStyle(By selector) => GetStyle(selector, DefaultTimeout);
-        protected string GetStyle(By selector, TimeSpan timeout) => GetAttribute(selector, "style", timeout);
+        public string GetStyle(By selector) => GetStyle(selector, DefaultTimeout);
+        public string GetStyle(By selector, TimeSpan timeout) => GetAttribute(selector, "style", timeout);
 
-        protected IEnumerable<string> GetStyleOfMany(By selector) => GetStyleOfMany(selector, DefaultTimeout);
-        protected IEnumerable<string> GetStyleOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "style", timeout);
+        public IEnumerable<string> GetStyleOfMany(By selector) => GetStyleOfMany(selector, DefaultTimeout);
+        public IEnumerable<string> GetStyleOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "style", timeout);
 
-        protected string GetId(By selector) => GetId(selector, DefaultTimeout);
-        protected string GetId(By selector, TimeSpan timeout) => GetAttribute(selector, "id", timeout);
+        public string GetId(By selector) => GetId(selector, DefaultTimeout);
+        public string GetId(By selector, TimeSpan timeout) => GetAttribute(selector, "id", timeout);
 
-        protected IEnumerable<string> GetIdOfMany(By selector) => GetIdOfMany(selector, DefaultTimeout);
-        protected IEnumerable<string> GetIdOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "id", timeout);
+        public IEnumerable<string> GetIdOfMany(By selector) => GetIdOfMany(selector, DefaultTimeout);
+        public IEnumerable<string> GetIdOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "id", timeout);
 
-        protected string GetValue(By selector) => GetValue(selector, DefaultTimeout);
-        protected string GetValue(By selector, TimeSpan timeout) => GetAttribute(selector, "value", timeout);
+        public string GetValue(By selector) => GetValue(selector, DefaultTimeout);
+        public string GetValue(By selector, TimeSpan timeout) => GetAttribute(selector, "value", timeout);
 
-        protected IEnumerable<string> GetValueOfMany(By selector) => GetValueOfMany(selector, DefaultTimeout);
-        protected IEnumerable<string> GetValueOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "value", timeout);
+        public IEnumerable<string> GetValueOfMany(By selector) => GetValueOfMany(selector, DefaultTimeout);
+        public IEnumerable<string> GetValueOfMany(By selector, TimeSpan timeout) => GetAttributeOfMany(selector, "value", timeout);
 
-        protected string GetText(By selector) => GetText(selector, DefaultTimeout);
-        protected string GetText(By selector, TimeSpan timeout)
+        public string GetText(By selector) => GetText(selector, DefaultTimeout);
+        public string GetText(By selector, TimeSpan timeout)
         {
             IWebElement element = GetElement(selector, timeout);
             return element.Text;
         }
 
-        protected IEnumerable<string> GetTextOfMany(By selector) => GetTextOfMany(selector, DefaultTimeout);
-        protected IEnumerable<string> GetTextOfMany(By selector, TimeSpan timeout)
+        public IEnumerable<string> GetTextOfMany(By selector) => GetTextOfMany(selector, DefaultTimeout);
+        public IEnumerable<string> GetTextOfMany(By selector, TimeSpan timeout)
         {
             IEnumerable<IWebElement> elements = GetElements(selector, timeout);
             IEnumerable<string> texts = elements.Select(x => x.Text);
@@ -331,22 +330,22 @@ namespace NuciWeb
             return texts;
         }
 
-        protected string GetSelectedText(By selector) => GetSelectedText(selector, DefaultTimeout);
-        protected string GetSelectedText(By selector, TimeSpan timeout)
+        public string GetSelectedText(By selector) => GetSelectedText(selector, DefaultTimeout);
+        public string GetSelectedText(By selector, TimeSpan timeout)
         {
             SelectElement element = GetSelectElement(selector, timeout);
             return element.SelectedOption.Text;
         }
 
-        protected IEnumerable<string> GetSelectedTextOfMany(By selector) => GetSelectedTextOfMany(selector, DefaultTimeout);
-        protected IEnumerable<string> GetSelectedTextOfMany(By selector, TimeSpan timeout)
+        public IEnumerable<string> GetSelectedTextOfMany(By selector) => GetSelectedTextOfMany(selector, DefaultTimeout);
+        public IEnumerable<string> GetSelectedTextOfMany(By selector, TimeSpan timeout)
         {
             IEnumerable<SelectElement> elements = GetSelectElements(selector, timeout);
             return elements.Select(x => x.SelectedOption.Text);
         }
 
-        protected void SetText(By selector, string text) => SetText(selector, text, DefaultTimeout);
-        protected void SetText(By selector, string text, TimeSpan timeout)
+        public void SetText(By selector, string text) => SetText(selector, text, DefaultTimeout);
+        public void SetText(By selector, string text, TimeSpan timeout)
         {
             IWebElement element = GetElement(selector, timeout);
 
@@ -354,38 +353,38 @@ namespace NuciWeb
             element.SendKeys(text);
         }
 
-        protected void AppendText(By selector, string text) => AppendText(selector, text, DefaultTimeout);
-        protected void AppendText(By selector, string text, TimeSpan timeout)
+        public void AppendText(By selector, string text) => AppendText(selector, text, DefaultTimeout);
+        public void AppendText(By selector, string text, TimeSpan timeout)
         {
             IWebElement element = GetElement(selector, timeout);
             element.SendKeys(text);
         }
 
-        protected void ClearText(By selector) => ClearText(selector, DefaultTimeout);
-        protected void ClearText(By selector, TimeSpan timeout)
+        public void ClearText(By selector) => ClearText(selector, DefaultTimeout);
+        public void ClearText(By selector, TimeSpan timeout)
         {
             IWebElement element = GetElement(selector, timeout);
             element.Clear();
         }
 
-        protected bool HasClass(By selector, string className) => HasClass(selector, className, DefaultTimeout);
-        protected bool HasClass(By selector, string className, TimeSpan timeout)
+        public bool HasClass(By selector, string className) => HasClass(selector, className, DefaultTimeout);
+        public bool HasClass(By selector, string className, TimeSpan timeout)
         {
             IEnumerable<string> classes = GetClasses(selector, timeout);
             return classes.Contains(className);
         }
 
-        protected bool IsSelected(By selector) => IsSelected(selector, DefaultTimeout);
-        protected bool IsSelected(By selector, TimeSpan timeout)
+        public bool IsSelected(By selector) => IsSelected(selector, DefaultTimeout);
+        public bool IsSelected(By selector, TimeSpan timeout)
         {
             IWebElement element = GetElement(selector, timeout);
             return element.Selected;
         }
 
-        protected void Wait() => Wait(DefaultWaitDuration);
-        protected void Wait(int milliseconds) => Wait(TimeSpan.FromMilliseconds(milliseconds));
-        protected void Wait(DateTime targetTime) => Wait(targetTime - DateTime.Now);
-        protected void Wait(TimeSpan timeSpan)
+        public void Wait() => Wait(DefaultWaitDuration);
+        public void Wait(int milliseconds) => Wait(TimeSpan.FromMilliseconds(milliseconds));
+        public void Wait(DateTime targetTime) => Wait(targetTime - DateTime.Now);
+        public void Wait(TimeSpan timeSpan)
         {
             if (timeSpan.TotalMilliseconds <= 0)
             {
@@ -398,8 +397,8 @@ namespace NuciWeb
             wait.Until(wd=> (DateTime.Now - now) - timeSpan > TimeSpan.Zero);
         }
 
-        protected void WaitForTextLength(By selector, int length) => WaitForTextLength(selector, length, DefaultTimeout);
-        protected void WaitForTextLength(By selector, int length, bool waitIndefinetely)
+        public void WaitForTextLength(By selector, int length) => WaitForTextLength(selector, length, DefaultTimeout);
+        public void WaitForTextLength(By selector, int length, bool waitIndefinetely)
         {
             if (waitIndefinetely)
             {
@@ -410,7 +409,7 @@ namespace NuciWeb
                 WaitForTextLength(selector, length, DefaultTimeout);
             }
         }
-        protected void WaitForTextLength(By selector, int length, TimeSpan timeout)
+        public void WaitForTextLength(By selector, int length, TimeSpan timeout)
         {
             SwitchToTab(CurrentTab);
 
@@ -431,8 +430,8 @@ namespace NuciWeb
             }
         }
 
-        protected void WaitForAnyElementToExist(params By[] selectors) => WaitForAnyElementToExist(DefaultTimeout, selectors);
-        protected void WaitForAnyElementToExist(bool waitIndefinetely, params By[] selectors)
+        public void WaitForAnyElementToExist(params By[] selectors) => WaitForAnyElementToExist(DefaultTimeout, selectors);
+        public void WaitForAnyElementToExist(bool waitIndefinetely, params By[] selectors)
         {
             if (waitIndefinetely)
             {
@@ -443,7 +442,7 @@ namespace NuciWeb
                 WaitForAnyElementToExist(DefaultTimeout, selectors);
             }
         }
-        protected void WaitForAnyElementToExist(TimeSpan timeout, params By[] selectors)
+        public void WaitForAnyElementToExist(TimeSpan timeout, params By[] selectors)
         {
             SwitchToTab(CurrentTab);
 
@@ -455,8 +454,8 @@ namespace NuciWeb
             }
         }
 
-        protected void WaitForAllElementsToExist(params By[] selectors) => WaitForAllElementsToExist(DefaultTimeout, selectors);
-        protected void WaitForAllElementsToExist(bool waitIndefinetely, params By[] selectors)
+        public void WaitForAllElementsToExist(params By[] selectors) => WaitForAllElementsToExist(DefaultTimeout, selectors);
+        public void WaitForAllElementsToExist(bool waitIndefinetely, params By[] selectors)
         {
             if (waitIndefinetely)
             {
@@ -467,7 +466,7 @@ namespace NuciWeb
                 WaitForAllElementsToExist(DefaultTimeout, selectors);
             }
         }
-        protected void WaitForAllElementsToExist(TimeSpan timeout, params By[] selectors)
+        public void WaitForAllElementsToExist(TimeSpan timeout, params By[] selectors)
         {
             SwitchToTab(CurrentTab);
 
@@ -479,8 +478,8 @@ namespace NuciWeb
             }
         }
 
-        protected void WaitForAnyElementToBeVisible(params By[] selectors) => WaitForAnyElementToBeVisible(DefaultTimeout, selectors);
-        protected void WaitForAnyElementToBeVisible(bool waitIndefinetely, params By[] selectors)
+        public void WaitForAnyElementToBeVisible(params By[] selectors) => WaitForAnyElementToBeVisible(DefaultTimeout, selectors);
+        public void WaitForAnyElementToBeVisible(bool waitIndefinetely, params By[] selectors)
         {
             if (waitIndefinetely)
             {
@@ -491,7 +490,7 @@ namespace NuciWeb
                 WaitForAnyElementToBeVisible(DefaultTimeout, selectors);
             }
         }
-        protected void WaitForAnyElementToBeVisible(TimeSpan timeout, params By[] selectors)
+        public void WaitForAnyElementToBeVisible(TimeSpan timeout, params By[] selectors)
         {
             SwitchToTab(CurrentTab);
 
@@ -503,8 +502,8 @@ namespace NuciWeb
             }
         }
 
-        protected void WaitForAllElementsToBeVisible(params By[] selectors) => WaitForAllElementsToBeVisible(DefaultTimeout, selectors);
-        protected void WaitForAllElementsToBeVisible(bool waitIndefinetely, params By[] selectors)
+        public void WaitForAllElementsToBeVisible(params By[] selectors) => WaitForAllElementsToBeVisible(DefaultTimeout, selectors);
+        public void WaitForAllElementsToBeVisible(bool waitIndefinetely, params By[] selectors)
         {
             if (waitIndefinetely)
             {
@@ -515,7 +514,7 @@ namespace NuciWeb
                 WaitForAllElementsToBeVisible(DefaultTimeout, selectors);
             }
         }
-        protected void WaitForAllElementsToBeVisible(TimeSpan timeout, params By[] selectors)
+        public void WaitForAllElementsToBeVisible(TimeSpan timeout, params By[] selectors)
         {
             SwitchToTab(CurrentTab);
 
@@ -527,8 +526,8 @@ namespace NuciWeb
             }
         }
 
-        protected void WaitForElementToExist(By selector) => WaitForElementToExist(selector, DefaultTimeout);
-        protected void WaitForElementToExist(By selector, bool waitIndefinetely)
+        public void WaitForElementToExist(By selector) => WaitForElementToExist(selector, DefaultTimeout);
+        public void WaitForElementToExist(By selector, bool waitIndefinetely)
         {
             if (waitIndefinetely)
             {
@@ -539,7 +538,7 @@ namespace NuciWeb
                 WaitForElementToExist(selector, DefaultTimeout);
             }
         }
-        protected void WaitForElementToExist(By selector, TimeSpan timeout)
+        public void WaitForElementToExist(By selector, TimeSpan timeout)
         {
             SwitchToTab(CurrentTab);
 
@@ -551,8 +550,8 @@ namespace NuciWeb
             }
         }
 
-        protected void WaitForElementToBeVisible(By selector) => WaitForElementToBeVisible(selector, DefaultTimeout);
-        protected void WaitForElementToBeVisible(By selector, bool waitIndefinetely)
+        public void WaitForElementToBeVisible(By selector) => WaitForElementToBeVisible(selector, DefaultTimeout);
+        public void WaitForElementToBeVisible(By selector, bool waitIndefinetely)
         {
             if (waitIndefinetely)
             {
@@ -563,7 +562,7 @@ namespace NuciWeb
                 WaitForElementToBeVisible(selector, DefaultTimeout);
             }
         }
-        protected void WaitForElementToBeVisible(By selector, TimeSpan timeout)
+        public void WaitForElementToBeVisible(By selector, TimeSpan timeout)
         {
             SwitchToTab(CurrentTab);
 
@@ -575,9 +574,9 @@ namespace NuciWeb
             }
         }
 
-        protected bool DoAllElementsExist(params By[] selectors) => selectors.All(DoesElementExist);
-        protected bool DoesAnyElementExist(params By[] selectors) => selectors.Any(DoesElementExist);
-        protected bool DoesElementExist(By selector)
+        public bool DoAllElementsExist(params By[] selectors) => selectors.All(DoesElementExist);
+        public bool DoesAnyElementExist(params By[] selectors) => selectors.Any(DoesElementExist);
+        public bool DoesElementExist(By selector)
         {
             SwitchToTab(CurrentTab);
 
@@ -592,9 +591,9 @@ namespace NuciWeb
             }
         }
 
-        protected bool AreAllElementsVisible(params By[] selectors) => selectors.All(IsElementVisible);
-        protected bool IsAnyElementVisible(params By[] selectors) => selectors.Any(IsElementVisible);
-        protected bool IsElementVisible(By selector)
+        public bool AreAllElementsVisible(params By[] selectors) => selectors.All(IsElementVisible);
+        public bool IsAnyElementVisible(params By[] selectors) => selectors.Any(IsElementVisible);
+        public bool IsElementVisible(By selector)
         {
             SwitchToTab(CurrentTab);
 
@@ -609,7 +608,7 @@ namespace NuciWeb
             }
         }
 
-        protected void ClickAny(params By[] selectors)
+        public void ClickAny(params By[] selectors)
         {
             bool clicked = false;
 
@@ -631,15 +630,15 @@ namespace NuciWeb
             }
         }
 
-        protected void Click(By selector) => Click(selector, DefaultTimeout);
-        protected void Click(By selector, TimeSpan timeout)
+        public void Click(By selector) => Click(selector, DefaultTimeout);
+        public void Click(By selector, TimeSpan timeout)
         {
             IWebElement element = GetElement(selector, timeout);
             element.Click();
         }
 
-        protected void UpdateCheckbox(By selector, bool status) => UpdateCheckbox(selector, status, DefaultTimeout);
-        protected void UpdateCheckbox(By selector, bool status, TimeSpan timeout)
+        public void UpdateCheckbox(By selector, bool status) => UpdateCheckbox(selector, status, DefaultTimeout);
+        public void UpdateCheckbox(By selector, bool status, TimeSpan timeout)
         {
             IWebElement element = GetElement(selector, timeout);
 
@@ -649,15 +648,15 @@ namespace NuciWeb
             }
         }
 
-        protected void SelectOptionByIndex(By selector, int index) => SelectOptionByIndex(selector, index, DefaultTimeout);
-        protected void SelectOptionByIndex(By selector, int index, TimeSpan timeout)
+        public void SelectOptionByIndex(By selector, int index) => SelectOptionByIndex(selector, index, DefaultTimeout);
+        public void SelectOptionByIndex(By selector, int index, TimeSpan timeout)
         {
             SelectElement element = GetSelectElement(selector, timeout);
             element.SelectByIndex(index);
         }
 
-        protected void SelectOptionByValue(By selector, object value) => SelectOptionByValue(selector, value, DefaultTimeout);
-        protected void SelectOptionByValue(By selector, object value, TimeSpan timeout)
+        public void SelectOptionByValue(By selector, object value) => SelectOptionByValue(selector, value, DefaultTimeout);
+        public void SelectOptionByValue(By selector, object value, TimeSpan timeout)
         {
             SelectElement element = GetSelectElement(selector, timeout);
 
@@ -675,16 +674,16 @@ namespace NuciWeb
             element.SelectByValue(stringValue);
         }
 
-        protected void SelectOptionByText(By selector, string text) => SelectOptionByText(selector, text, DefaultTimeout);
-        protected void SelectOptionByText(By selector, string text, TimeSpan timeout)
+        public void SelectOptionByText(By selector, string text) => SelectOptionByText(selector, text, DefaultTimeout);
+        public void SelectOptionByText(By selector, string text, TimeSpan timeout)
         {
             SelectElement element = GetSelectElement(selector, timeout);
 
             element.SelectByText(text);
         }
 
-        protected void SelectRandomOption(By selector) => SelectRandomOption(selector, DefaultTimeout);
-        protected void SelectRandomOption(By selector, TimeSpan timeout)
+        public void SelectRandomOption(By selector) => SelectRandomOption(selector, DefaultTimeout);
+        public void SelectRandomOption(By selector, TimeSpan timeout)
         {
             SelectElement element = GetSelectElement(selector, timeout);
 
