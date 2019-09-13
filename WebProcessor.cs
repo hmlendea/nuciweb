@@ -144,7 +144,8 @@ namespace NuciWeb
 
                 for (int i = 0; i < 3; i++)
                 {
-                    if (IsElementVisible(anythingSelector))
+                    WaitForElementToExist(anythingSelector);
+                    if (DoesElementExist(anythingSelector))
                     {
                         break;
                     }
