@@ -106,6 +106,7 @@ namespace NuciWeb
             return openedWindowTabs;
         }
 
+        public void CloseTab() => CloseTab(CurrentTab);
         public void CloseTab(string tab)
         {
             if (!Tabs.Contains(tab))
