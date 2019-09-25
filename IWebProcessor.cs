@@ -19,6 +19,7 @@ namespace NuciWeb
         string NewTab();
         string NewTab(string url);
 
+        void CloseTab();
         void CloseTab(string tab);
 
         void GoToUrl(string url);
