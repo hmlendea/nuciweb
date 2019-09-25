@@ -169,6 +169,9 @@ namespace NuciWeb
         bool IsAnyElementVisible(params By[] selectors);
         bool IsElementVisible(By selector);
 
+        void MoveToElement(By selector);
+        void MoveToElement(By selector, TimeSpan timeout);
+
         void ClickAny(params By[] selectors);
 
         void Click(By selector);

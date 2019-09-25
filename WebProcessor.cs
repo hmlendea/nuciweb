@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
 namespace NuciWeb
@@ -653,6 +654,16 @@ namespace NuciWeb
             {
                 return false;
             }
+        }
+
+        public void MoveToElement(By selector) => MoveToElement(selector, DefaultTimeout);
+        public void MoveToElement(By selector, TimeSpan timeout)
+        {
+            IWebElement element = GetElement(selector, timeout);
+
+            Actions actions = new Actions(driver);
+            actions.MoveToElement(element);
+            actions.Perform();
         }
 
         public void ClickAny(params By[] selectors)
