@@ -149,9 +149,17 @@ namespace NuciWeb
         void WaitForElementToExist(By selector, bool waitIndefinetely);
         void WaitForElementToExist(By selector, TimeSpan timeout);
 
+        void WaitForElementToDisappear(By selector);
+        void WaitForElementToDisappear(By selector, bool waitIndefinetely);
+        void WaitForElementToDisappear(By selector, TimeSpan timeout);
+
         void WaitForElementToBeVisible(By selector);
         void WaitForElementToBeVisible(By selector, bool waitIndefinetely);
         void WaitForElementToBeVisible(By selector, TimeSpan timeout);
+
+        void WaitForElementToBeInvisible(By selector);
+        void WaitForElementToBeInvisible(By selector, bool waitIndefinetely);
+        void WaitForElementToBeInvisible(By selector, TimeSpan timeout);
 
         bool DoAllElementsExist(params By[] selectors);
         bool DoesAnyElementExist(params By[] selectors);

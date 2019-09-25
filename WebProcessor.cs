@@ -549,6 +549,30 @@ namespace NuciWeb
             }
         }
 
+        public void WaitForElementToDisappear(By selector) => WaitForElementToDisappear(selector, DefaultTimeout);
+        public void WaitForElementToDisappear(By selector, bool waitIndefinetely)
+        {
+            if (waitIndefinetely)
+            {
+                WaitForElementToDisappear(selector, TimeSpan.FromDays(873));
+            }
+            else
+            {
+                WaitForElementToDisappear(selector, DefaultTimeout);
+            }
+        }
+        public void WaitForElementToDisappear(By selector, TimeSpan timeout)
+        {
+            SwitchToTab(CurrentTab);
+
+            DateTime beginTime = DateTime.Now;
+
+            while (DateTime.Now - beginTime < timeout && DoesElementExist(selector))
+            {
+                Wait();
+            }
+        }
+
         public void WaitForElementToBeVisible(By selector) => WaitForElementToBeVisible(selector, DefaultTimeout);
         public void WaitForElementToBeVisible(By selector, bool waitIndefinetely)
         {
@@ -568,6 +592,30 @@ namespace NuciWeb
             DateTime beginTime = DateTime.Now;
 
             while (DateTime.Now - beginTime < timeout && !IsElementVisible(selector))
+            {
+                Wait();
+            }
+        }
+
+        public void WaitForElementToBeInvisible(By selector) => WaitForElementToBeInvisible(selector, DefaultTimeout);
+        public void WaitForElementToBeInvisible(By selector, bool waitIndefinetely)
+        {
+            if (waitIndefinetely)
+            {
+                WaitForElementToBeInvisible(selector, TimeSpan.FromDays(873));
+            }
+            else
+            {
+                WaitForElementToBeInvisible(selector, DefaultTimeout);
+            }
+        }
+        public void WaitForElementToBeInvisible(By selector, TimeSpan timeout)
+        {
+            SwitchToTab(CurrentTab);
+
+            DateTime beginTime = DateTime.Now;
+
+            while (DateTime.Now - beginTime < timeout && IsElementVisible(selector))
             {
                 Wait();
             }
