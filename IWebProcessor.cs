@@ -13,6 +13,8 @@ namespace NuciWeb
 
         IEnumerable<string> DriverWindowTabs { get; }
 
+        string CurrentTab { get; }
+
         void SwitchToTab(int index);
         void SwitchToTab(string tab);
 
