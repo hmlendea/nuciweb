@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/hmlendea/nuciweb.svg?branch=master)](https://travis-ci.com/hmlendea/nuciweb) ![Nuget](https://img.shields.io/nuget/v/nuciweb.svg)
+[![Build Status](https://github.com/hmlendea/nuciweb/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hmlendea/nuciweb/actions/workflows/dotnet.yml)
 
 # NuciWeb
 
