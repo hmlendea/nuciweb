@@ -3,3 +3,17 @@
 # NuciWeb
 
 C# Selenium Wrapper - NuGet Package
+
+# Installation
+
+[![Get it from NuGet](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/nuget.png)](https://nuget.org/packages/NuciWeb)
+
+**.NET CLI**:
+```bash
+dotnet add package NuciWeb
+```
+
+**Package Manager**:
+```powershell
+Install-Package NuciWeb
+```
