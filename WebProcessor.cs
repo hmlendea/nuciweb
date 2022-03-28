@@ -773,8 +773,8 @@ namespace NuciWeb
                     Wait();
                 }
             }
-
-            return null;
+            
+            throw new NotFoundException($"No element with the `{selector.Mechanism} {selector.Criteria}` exists!");
         }
         
         SelectElement GetSelectElement(By selector, TimeSpan timeout)
@@ -823,7 +823,7 @@ namespace NuciWeb
                 }
             }
 
-            return null;
+            throw new NotFoundException($"No elements with the `{selector.Mechanism} {selector.Criteria}` exist!");
         }
  
         IAlert GetAlert(TimeSpan timeout)
