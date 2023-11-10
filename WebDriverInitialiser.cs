@@ -74,7 +74,7 @@ namespace NuciWeb
             {
                 options.AddArgument("--headless");
                 options.AddArgument("--disable-gpu");
-                options.AddArgument("--window-size=1366,768");
+                options.AddArgument("--window-size=1920,1080");
                 options.AddArgument("--start-maximized");
                 options.AddArgument("--blink-settings=imagesEnabled=false");
                 options.AddUserProfilePreference("profile.default_content_setting_values.images", 2);
