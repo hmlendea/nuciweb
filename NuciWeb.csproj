@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>NuciWeb</RootNamespace>
-    <Version>2.1.1</Version>
+    <Version>2.2.0</Version>
     <Description>Selenium wrapper</Description>
     <Authors>Horațiu Mlendea</Authors>
     <Copyright>Copyright 2021 © Horațiu Mlendea</Copyright>
@@ -16,5 +16,5 @@
     <PackageReference Include="Selenium.Support" Version="4.1.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.1.0" />
   </ItemGroup>
-    
+
 </Project>
