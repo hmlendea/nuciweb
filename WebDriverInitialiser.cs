@@ -35,7 +35,7 @@ namespace NuciWeb
             options.AddArgument("--disable-save-password-bubble");
             options.SetPreference("privacy.firstparty.isolate", false);
 
-            if (isDebugModeEnabled)
+            if (!isDebugModeEnabled)
             {
                 options.AddArgument("--headless");
                 options.SetPreference("permissions.default.image", 2);
@@ -70,7 +70,7 @@ namespace NuciWeb
 			options.AddArgument("--disable-infobars");
 			options.AddArgument("--disable-logging");
 
-            if (isDebugModeEnabled)
+            if (!isDebugModeEnabled)
             {
                 options.AddArgument("--headless");
                 options.AddArgument("--disable-gpu");
