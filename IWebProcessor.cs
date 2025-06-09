@@ -11,7 +11,7 @@ namespace NuciWeb
 
         IList<string> Tabs { get; }
 
-        IEnumerable<string> DriverWindowTabs { get; }
+        IList<string> DriverWindowTabs { get; }
 
         string CurrentTab { get; }
 
@@ -48,65 +48,65 @@ namespace NuciWeb
 
         string GetPageSource();
 
-        IEnumerable<IWebElement> GetElements(By selector);
+        IList<IWebElement> GetElements(By selector);
         int GetElementsCount(By selector);
 
         string GetAttribute(By selector, string attribute);
         string GetAttribute(By selector, string attribute, TimeSpan timeout);
 
-        IEnumerable<string> GetAttributeOfMany(By selector, string attribute);
-        IEnumerable<string> GetAttributeOfMany(By selector, string attribute, TimeSpan timeout);
+        IList<string> GetAttributeOfMany(By selector, string attribute);
+        IList<string> GetAttributeOfMany(By selector, string attribute, TimeSpan timeout);
 
         string GetClass(By selector);
         string GetClass(By selector, TimeSpan timeout);
 
-        IEnumerable<string> GetClassOfMany(By selector);
-        IEnumerable<string> GetClassOfMany(By selector, TimeSpan timeout);
+        IList<string> GetClassOfMany(By selector);
+        IList<string> GetClassOfMany(By selector, TimeSpan timeout);
 
-        IEnumerable<string> GetClasses(By selector);
-        IEnumerable<string> GetClasses(By selector, TimeSpan timeout);
+        IList<string> GetClasses(By selector);
+        IList<string> GetClasses(By selector, TimeSpan timeout);
 
         string GetHyperlink(By selector);
         string GetHyperlink(By selector, TimeSpan timeout);
 
-        IEnumerable<string> GetHyperlinkOfMany(By selector);
-        IEnumerable<string> GetHyperlinkOfMany(By selector, TimeSpan timeout);
+        IList<string> GetHyperlinkOfMany(By selector);
+        IList<string> GetHyperlinkOfMany(By selector, TimeSpan timeout);
 
         string GetSource(By selector);
         string GetSource(By selector, TimeSpan timeout);
 
-        IEnumerable<string> GetSourceOfMany(By selector);
-        IEnumerable<string> GetSourceOfMany(By selector, TimeSpan timeout);
-        
+        IList<string> GetSourceOfMany(By selector);
+        IList<string> GetSourceOfMany(By selector, TimeSpan timeout);
+
         string GetStyle(By selector);
         string GetStyle(By selector, TimeSpan timeout);
 
-        IEnumerable<string> GetStyleOfMany(By selector);
-        IEnumerable<string> GetStyleOfMany(By selector, TimeSpan timeout);
+        IList<string> GetStyleOfMany(By selector);
+        IList<string> GetStyleOfMany(By selector, TimeSpan timeout);
 
         string GetId(By selector);
         string GetId(By selector, TimeSpan timeout);
 
-        IEnumerable<string> GetIdOfMany(By selector);
-        IEnumerable<string> GetIdOfMany(By selector, TimeSpan timeout);
+        IList<string> GetIdOfMany(By selector);
+        IList<string> GetIdOfMany(By selector, TimeSpan timeout);
 
         string GetValue(By selector);
         string GetValue(By selector, TimeSpan timeout);
 
-        IEnumerable<string> GetValueOfMany(By selector);
-        IEnumerable<string> GetValueOfMany(By selector, TimeSpan timeout);
+        IList<string> GetValueOfMany(By selector);
+        IList<string> GetValueOfMany(By selector, TimeSpan timeout);
 
         string GetText(By selector);
         string GetText(By selector, TimeSpan timeout);
 
-        IEnumerable<string> GetTextOfMany(By selector);
-        IEnumerable<string> GetTextOfMany(By selector, TimeSpan timeout);
+        IList<string> GetTextOfMany(By selector);
+        IList<string> GetTextOfMany(By selector, TimeSpan timeout);
 
         string GetSelectedText(By selector);
         string GetSelectedText(By selector, TimeSpan timeout);
 
-        IEnumerable<string> GetSelectedTextOfMany(By selector);
-        IEnumerable<string> GetSelectedTextOfMany(By selector, TimeSpan timeout);
+        IList<string> GetSelectedTextOfMany(By selector);
+        IList<string> GetSelectedTextOfMany(By selector, TimeSpan timeout);
 
         void SetText(By selector, string text);
         void SetText(By selector, string text, TimeSpan timeout);

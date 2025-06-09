@@ -17,17 +17,15 @@ namespace NuciWeb
             {
                 return InitialiseFirefoxDriver(isDebugModeEnabled, pageLoadTimeout);
             }
-            else
-            {
-                return InitialiseChromeDriver(isDebugModeEnabled, pageLoadTimeout);
-            }
+
+            return InitialiseChromeDriver(isDebugModeEnabled, pageLoadTimeout);
         }
 
         public static IWebDriver InitialiseFirefoxDriver(
             bool isDebugModeEnabled = true,
             int pageLoadTimeout = 90)
         {
-            FirefoxOptions options = new FirefoxOptions
+            FirefoxOptions options = new()
             {
                 PageLoadStrategy = PageLoadStrategy.None
             };
@@ -46,7 +44,7 @@ namespace NuciWeb
             service.HideCommandPromptWindow = true;
             service.LogLevel = FirefoxDriverLogLevel.Error;
 
-            IWebDriver driver = new FirefoxDriver(service, options, TimeSpan.FromSeconds(pageLoadTimeout));
+            FirefoxDriver driver = new(service, options, TimeSpan.FromSeconds(pageLoadTimeout));
 
             driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(pageLoadTimeout);
             driver.Manage().Window.Maximize();
@@ -58,7 +56,7 @@ namespace NuciWeb
             bool isDebugModeEnabled = true,
             int pageLoadTimeout = 90)
         {
-            ChromeOptions options = new ChromeOptions
+            ChromeOptions options = new()
             {
                 PageLoadStrategy = PageLoadStrategy.None
             };
@@ -84,8 +82,8 @@ namespace NuciWeb
             service.SuppressInitialDiagnosticInformation = true;
             service.HideCommandPromptWindow = true;
 
-            ChromeDriver webDriver = new ChromeDriver(service, options, TimeSpan.FromSeconds(pageLoadTimeout));
-            IJavaScriptExecutor scriptExecutor = (IJavaScriptExecutor)webDriver;
+            ChromeDriver webDriver = new(service, options, TimeSpan.FromSeconds(pageLoadTimeout));
+            IJavaScriptExecutor scriptExecutor = webDriver;
             string userAgent = (string)scriptExecutor.ExecuteScript("return navigator.userAgent;");
 
             if (userAgent.Contains("Headless"))
