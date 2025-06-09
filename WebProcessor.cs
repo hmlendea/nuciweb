@@ -62,7 +62,7 @@ namespace NuciWeb
 
             if (!Tabs.Contains(tab))
             {
-                throw new ArgumentOutOfRangeException("The specified tab does not belong to this processor");
+                throw new ArgumentException("The specified tab does not belong to this processor");
             }
 
             CurrentTab = tab;
@@ -103,7 +103,7 @@ namespace NuciWeb
         {
             if (!Tabs.Contains(tab))
             {
-                throw new ArgumentOutOfRangeException("The specified tab does not belong to this processor");
+                throw new ArgumentException("The specified tab does not belong to this processor");
             }
 
             driver.SwitchTo().Window(tab).Close();
