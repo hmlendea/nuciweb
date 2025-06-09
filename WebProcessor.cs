@@ -180,7 +180,7 @@ namespace NuciWeb
             {
                 try
                 {
-                    driver.SwitchTo().Frame(GetElement(selector, timeout);
+                    driver.SwitchTo().Frame(GetElement(selector, timeout));
                 }
                 finally
                 {
