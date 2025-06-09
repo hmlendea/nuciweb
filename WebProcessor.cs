@@ -72,7 +72,7 @@ namespace NuciWeb
             {
                 throw new ArgumentOutOfRangeException("The specified tab does not belong to this processor");
             }
-            
+
             CurrentTab = tab;
             driver.SwitchTo().Window(tab);
         }
@@ -113,7 +113,7 @@ namespace NuciWeb
             {
                 throw new ArgumentOutOfRangeException("The specified tab does not belong to this processor");
             }
-            
+
             driver.SwitchTo().Window(tab).Close();
             Tabs.Remove(tab);
         }
@@ -139,7 +139,7 @@ namespace NuciWeb
 
             By errorSelectorChrome = By.ClassName("error-code");
             By anythingSelector = By.XPath(@"/html/body/*");
-            
+
             for (int attempt = 0; attempt < httpRetries; attempt++)
             {
                 driver.Navigate().GoToUrl(url);
@@ -214,9 +214,9 @@ namespace NuciWeb
         public string GetVariableValue(string variableName)
         {
             string script = $"return {variableName};";
-            
+
             Wait();
-            
+
             IJavaScriptExecutor scriptExecutor = (IJavaScriptExecutor)driver;
             return (string)scriptExecutor.ExecuteScript(script);
         }
@@ -238,7 +238,7 @@ namespace NuciWeb
         public string GetPageSource()
         {
             string oldHandle = driver.CurrentWindowHandle;
-            
+
             SwitchToTab(CurrentTab);
             string source = driver.PageSource;
 
@@ -685,7 +685,7 @@ namespace NuciWeb
             if (!clicked)
             {
                 // TODO: Use a proper message
-                throw new ElementNotVisibleException("No element to click");
+                throw new NoSuchElementException("No element to click");
             }
         }
 
@@ -749,7 +749,7 @@ namespace NuciWeb
             int option = Random.Next(0, element.Options.Count);
             element.SelectByIndex(option);
         }
-        
+
         IWebElement GetElement(By selector, TimeSpan timeout)
         {
             SwitchToTab(CurrentTab);
@@ -761,7 +761,7 @@ namespace NuciWeb
                 try
                 {
                     IWebElement element = driver.FindElement(selector);
-                    
+
                     if (element != null && element.Displayed)
                     {
                         return element;
@@ -773,10 +773,10 @@ namespace NuciWeb
                     Wait();
                 }
             }
-            
+
             throw new NotFoundException($"No element with the `{selector.Mechanism} {selector.Criteria}` exists!");
         }
-        
+
         SelectElement GetSelectElement(By selector, TimeSpan timeout)
         {
             IWebElement element = GetElement(selector, timeout);
@@ -798,7 +798,7 @@ namespace NuciWeb
 
             return selectElements;
         }
-        
+
         List<IWebElement> GetElements(By selector, TimeSpan timeout)
         {
             SwitchToTab(CurrentTab);
@@ -825,7 +825,7 @@ namespace NuciWeb
 
             throw new NotFoundException($"No elements with the `{selector.Mechanism} {selector.Criteria}` exist!");
         }
- 
+
         IAlert GetAlert(TimeSpan timeout)
         {
             SwitchToTab(CurrentTab);
