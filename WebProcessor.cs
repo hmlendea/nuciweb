@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 using OpenQA.Selenium;
@@ -14,7 +15,7 @@ namespace NuciWeb
 
         public IList<string> Tabs { get; private set; } = [];
 
-        public IEnumerable<string> DriverWindowTabs => driver.WindowHandles;
+        public IList<string> DriverWindowTabs => driver.WindowHandles;
 
         public string CurrentTab { get; private set; }
 
@@ -82,12 +83,12 @@ namespace NuciWeb
                 "a.click();" +
                 "a.parentNode.removeChild(a);";
 
-            List<string> oldWindowTabs = driver.WindowHandles.ToList();
+            IList<string> oldWindowTabs = [.. driver.WindowHandles];
 
             IJavaScriptExecutor scriptExecutor = (IJavaScriptExecutor)driver;
             scriptExecutor.ExecuteScript(newTabScript);
 
-            List<string> newWindowTabs = driver.WindowHandles.ToList();
+            IList<string> newWindowTabs = [.. driver.WindowHandles];
             string openedWindowTabs = newWindowTabs.Except(oldWindowTabs).Single();
 
             Tabs.Add(openedWindowTabs);
@@ -237,12 +238,12 @@ namespace NuciWeb
             return source;
         }
 
-        public IEnumerable<IWebElement> GetElements(By selector)
+        public IList<IWebElement> GetElements(By selector)
             => GetElements(selector, DefaultTimeout);
 
         public int GetElementsCount(By selector)
         {
-            IEnumerable<IWebElement> elements = GetElements(selector);
+            IList<IWebElement> elements = GetElements(selector);
 
             if (elements is null)
             {
@@ -257,24 +258,24 @@ namespace NuciWeb
         public string GetAttribute(By selector, string attribute, TimeSpan timeout)
             => GetElement(selector, timeout).GetAttribute(attribute);
 
-        public IEnumerable<string> GetAttributeOfMany(By selector, string attribute)
+        public IList<string> GetAttributeOfMany(By selector, string attribute)
             => GetAttributeOfMany(selector, attribute, DefaultTimeout);
-        public IEnumerable<string> GetAttributeOfMany(By selector, string attribute, TimeSpan timeout)
-            => GetElements(selector, timeout).Select(x => x.GetAttribute(attribute));
+        public IList<string> GetAttributeOfMany(By selector, string attribute, TimeSpan timeout)
+            => [.. GetElements(selector, timeout).Select(x => x.GetAttribute(attribute))];
 
         public string GetClass(By selector)
             => GetClass(selector, DefaultTimeout);
         public string GetClass(By selector, TimeSpan timeout)
             => GetAttribute(selector, "class", timeout);
 
-        public IEnumerable<string> GetClassOfMany(By selector)
+        public IList<string> GetClassOfMany(By selector)
             => GetClassOfMany(selector, DefaultTimeout);
-        public IEnumerable<string> GetClassOfMany(By selector, TimeSpan timeout)
+        public IList<string> GetClassOfMany(By selector, TimeSpan timeout)
             => GetAttributeOfMany(selector, "class", timeout);
 
-        public IEnumerable<string> GetClasses(By selector)
+        public IList<string> GetClasses(By selector)
             => GetClasses(selector, DefaultTimeout);
-        public IEnumerable<string> GetClasses(By selector, TimeSpan timeout)
+        public IList<string> GetClasses(By selector, TimeSpan timeout)
             => GetAttribute(selector, "class", timeout).Split(' ');
 
         public string GetHyperlink(By selector)
@@ -282,9 +283,9 @@ namespace NuciWeb
         public string GetHyperlink(By selector, TimeSpan timeout)
             => GetAttribute(selector, "href", timeout);
 
-        public IEnumerable<string> GetHyperlinkOfMany(By selector)
+        public IList<string> GetHyperlinkOfMany(By selector)
             => GetHyperlinkOfMany(selector, DefaultTimeout);
-        public IEnumerable<string> GetHyperlinkOfMany(By selector, TimeSpan timeout)
+        public IList<string> GetHyperlinkOfMany(By selector, TimeSpan timeout)
             => GetAttributeOfMany(selector, "href", timeout);
 
         public string GetSource(By selector)
@@ -292,9 +293,9 @@ namespace NuciWeb
         public string GetSource(By selector, TimeSpan timeout)
             => GetAttribute(selector, "src", timeout);
 
-        public IEnumerable<string> GetSourceOfMany(By selector)
+        public IList<string> GetSourceOfMany(By selector)
             => GetSourceOfMany(selector, DefaultTimeout);
-        public IEnumerable<string> GetSourceOfMany(By selector, TimeSpan timeout)
+        public IList<string> GetSourceOfMany(By selector, TimeSpan timeout)
             => GetAttributeOfMany(selector, "src", timeout);
 
         public string GetStyle(By selector)
@@ -302,9 +303,9 @@ namespace NuciWeb
         public string GetStyle(By selector, TimeSpan timeout)
             => GetAttribute(selector, "style", timeout);
 
-        public IEnumerable<string> GetStyleOfMany(By selector)
+        public IList<string> GetStyleOfMany(By selector)
             => GetStyleOfMany(selector, DefaultTimeout);
-        public IEnumerable<string> GetStyleOfMany(By selector, TimeSpan timeout)
+        public IList<string> GetStyleOfMany(By selector, TimeSpan timeout)
             => GetAttributeOfMany(selector, "style", timeout);
 
         public string GetId(By selector)
@@ -312,9 +313,9 @@ namespace NuciWeb
         public string GetId(By selector, TimeSpan timeout)
             => GetAttribute(selector, "id", timeout);
 
-        public IEnumerable<string> GetIdOfMany(By selector)
+        public IList<string> GetIdOfMany(By selector)
             => GetIdOfMany(selector, DefaultTimeout);
-        public IEnumerable<string> GetIdOfMany(By selector, TimeSpan timeout)
+        public IList<string> GetIdOfMany(By selector, TimeSpan timeout)
             => GetAttributeOfMany(selector, "id", timeout);
 
         public string GetValue(By selector)
@@ -322,9 +323,9 @@ namespace NuciWeb
         public string GetValue(By selector, TimeSpan timeout)
             => GetAttribute(selector, "value", timeout);
 
-        public IEnumerable<string> GetValueOfMany(By selector)
+        public IList<string> GetValueOfMany(By selector)
             => GetValueOfMany(selector, DefaultTimeout);
-        public IEnumerable<string> GetValueOfMany(By selector, TimeSpan timeout)
+        public IList<string> GetValueOfMany(By selector, TimeSpan timeout)
             => GetAttributeOfMany(selector, "value", timeout);
 
         public string GetText(By selector)
@@ -332,20 +333,20 @@ namespace NuciWeb
         public string GetText(By selector, TimeSpan timeout)
             => GetElement(selector, timeout).Text;
 
-        public IEnumerable<string> GetTextOfMany(By selector)
+        public IList<string> GetTextOfMany(By selector)
             => GetTextOfMany(selector, DefaultTimeout);
-        public IEnumerable<string> GetTextOfMany(By selector, TimeSpan timeout)
-            => GetElements(selector, timeout).Select(x => x.Text);
+        public IList<string> GetTextOfMany(By selector, TimeSpan timeout)
+            => [.. GetElements(selector, timeout).Select(x => x.Text)];
 
         public string GetSelectedText(By selector)
             => GetSelectedText(selector, DefaultTimeout);
         public string GetSelectedText(By selector, TimeSpan timeout)
             => GetSelectElement(selector, timeout).SelectedOption.Text;
 
-        public IEnumerable<string> GetSelectedTextOfMany(By selector)
+        public IList<string> GetSelectedTextOfMany(By selector)
             => GetSelectedTextOfMany(selector, DefaultTimeout);
-        public IEnumerable<string> GetSelectedTextOfMany(By selector, TimeSpan timeout)
-            => GetSelectElements(selector, timeout).Select(x => x.SelectedOption.Text);
+        public IList<string> GetSelectedTextOfMany(By selector, TimeSpan timeout)
+            => [.. GetSelectElements(selector, timeout).Select(x => x.SelectedOption.Text)];
 
         public void SetText(By selector, string text)
             => SetText(selector, text, DefaultTimeout);
@@ -789,10 +790,10 @@ namespace NuciWeb
         SelectElement GetSelectElement(By selector, TimeSpan timeout)
             => new(GetElement(selector, timeout));
 
-        IEnumerable<SelectElement> GetSelectElements(By selector, TimeSpan timeout)
+        IList<SelectElement> GetSelectElements(By selector, TimeSpan timeout)
         {
-            IEnumerable<IWebElement> elements = GetElements(selector, timeout);
-            List<SelectElement> selectElements = [];
+            IList<IWebElement> elements = GetElements(selector, timeout);
+            IList<SelectElement> selectElements = [];
 
             foreach (IWebElement element in elements)
             {
@@ -803,7 +804,7 @@ namespace NuciWeb
             return selectElements;
         }
 
-        List<IWebElement> GetElements(By selector, TimeSpan timeout)
+        ReadOnlyCollection<IWebElement> GetElements(By selector, TimeSpan timeout)
         {
             SwitchToTab(CurrentTab);
 
@@ -813,7 +814,7 @@ namespace NuciWeb
             {
                 try
                 {
-                    List<IWebElement> elements = driver.FindElements(selector).ToList();
+                    ReadOnlyCollection<IWebElement> elements = driver.FindElements(selector);
 
                     if (elements is not null && elements.Count > 0)
                     {
