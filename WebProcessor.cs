@@ -180,8 +180,7 @@ namespace NuciWeb
             {
                 try
                 {
-                    IWebElement iframe = GetElement(selector, timeout);
-                    driver.SwitchTo().Frame(iframe);
+                    driver.SwitchTo().Frame(GetElement(selector, timeout);
                 }
                 finally
                 {
@@ -190,14 +189,14 @@ namespace NuciWeb
             }
         }
 
-        public void Refresh() => driver.Navigate().Refresh();
+        public void Refresh()
+            => driver.Navigate().Refresh();
 
         public void ExecuteScript(string script)
         {
             SwitchToTab(CurrentTab);
 
-            IJavaScriptExecutor scriptExecutor = (IJavaScriptExecutor)driver;
-            scriptExecutor.ExecuteScript(script);
+            ((IJavaScriptExecutor)driver).ExecuteScript(script);
         }
 
         public string GetVariableValue(string variableName)
@@ -213,18 +212,12 @@ namespace NuciWeb
         public void AcceptAlert()
             => AcceptAlert(DefaultTimeout);
         public void AcceptAlert(TimeSpan timeout)
-        {
-            IAlert alert = GetAlert(timeout);
-            alert.Accept();
-        }
+            => GetAlert(timeout).Accept();
 
         public void DismissAlert()
             => DismissAlert(DefaultTimeout);
         public void DismissAlert(TimeSpan timeout)
-        {
-            IAlert alert = GetAlert(timeout);
-            alert.Dismiss();
-        }
+            => GetAlert(timeout).Dismiss();
 
         public string GetPageSource()
         {
@@ -250,7 +243,7 @@ namespace NuciWeb
                 return 0;
             }
 
-            return elements.Count();
+            return elements.Count;
         }
 
         public string GetAttribute(By selector, string attribute)
