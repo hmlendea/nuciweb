@@ -52,61 +52,99 @@ namespace NuciWeb
         int GetElementsCount(By selector);
 
         string GetAttribute(By selector, string attribute);
+        string GetAttribute(By selector, string attribute, bool retryOnDomFailure);
         string GetAttribute(By selector, string attribute, TimeSpan timeout);
+        string GetAttribute(By selector, string attribute, TimeSpan timeout, bool retryOnDomFailure);
 
         IList<string> GetAttributeOfMany(By selector, string attribute);
+        IList<string> GetAttributeOfMany(By selector, string attribute, bool retryOnDomFailure);
         IList<string> GetAttributeOfMany(By selector, string attribute, TimeSpan timeout);
+        IList<string> GetAttributeOfMany(By selector, string attribute, TimeSpan timeout, bool retryOnDomFailure);
 
         string GetClass(By selector);
+        string GetClass(By selector, bool retryOnDomFailure);
         string GetClass(By selector, TimeSpan timeout);
+        string GetClass(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         IList<string> GetClassOfMany(By selector);
+        IList<string> GetClassOfMany(By selector, bool retryOnDomFailure);
         IList<string> GetClassOfMany(By selector, TimeSpan timeout);
+        IList<string> GetClassOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         IList<string> GetClasses(By selector);
+        IList<string> GetClasses(By selector, bool retryOnDomFailure);
         IList<string> GetClasses(By selector, TimeSpan timeout);
+        IList<string> GetClasses(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         string GetHyperlink(By selector);
+        string GetHyperlink(By selector, bool retryOnDomFailure);
         string GetHyperlink(By selector, TimeSpan timeout);
+        string GetHyperlink(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         IList<string> GetHyperlinkOfMany(By selector);
+        IList<string> GetHyperlinkOfMany(By selector, bool retryOnDomFailure);
         IList<string> GetHyperlinkOfMany(By selector, TimeSpan timeout);
+        IList<string> GetHyperlinkOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         string GetSource(By selector);
+        string GetSource(By selector, bool retryOnDomFailure);
         string GetSource(By selector, TimeSpan timeout);
+        string GetSource(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         IList<string> GetSourceOfMany(By selector);
+        IList<string> GetSourceOfMany(By selector, bool retryOnDomFailure);
         IList<string> GetSourceOfMany(By selector, TimeSpan timeout);
+        IList<string> GetSourceOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         string GetStyle(By selector);
+        string GetStyle(By selector, bool retryOnDomFailure);
         string GetStyle(By selector, TimeSpan timeout);
+        string GetStyle(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         IList<string> GetStyleOfMany(By selector);
+        IList<string> GetStyleOfMany(By selector, bool retryOnDomFailure);
         IList<string> GetStyleOfMany(By selector, TimeSpan timeout);
+        IList<string> GetStyleOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         string GetId(By selector);
+        string GetId(By selector, bool retryOnDomFailure);
         string GetId(By selector, TimeSpan timeout);
+        string GetId(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         IList<string> GetIdOfMany(By selector);
+        IList<string> GetIdOfMany(By selector, bool retryOnDomFailure);
         IList<string> GetIdOfMany(By selector, TimeSpan timeout);
+        IList<string> GetIdOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         string GetValue(By selector);
+        string GetValue(By selector, bool retryOnDomFailure);
         string GetValue(By selector, TimeSpan timeout);
+        string GetValue(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         IList<string> GetValueOfMany(By selector);
+        IList<string> GetValueOfMany(By selector, bool retryOnDomFailure);
         IList<string> GetValueOfMany(By selector, TimeSpan timeout);
+        IList<string> GetValueOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         string GetText(By selector);
+        string GetText(By selector, bool retryOnDomFailure);
         string GetText(By selector, TimeSpan timeout);
+        string GetText(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         IList<string> GetTextOfMany(By selector);
+        IList<string> GetTextOfMany(By selector, bool retryOnDomFailure);
         IList<string> GetTextOfMany(By selector, TimeSpan timeout);
+        IList<string> GetTextOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         string GetSelectedText(By selector);
+        string GetSelectedText(By selector, bool retryOnDomFailure);
         string GetSelectedText(By selector, TimeSpan timeout);
+        string GetSelectedText(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         IList<string> GetSelectedTextOfMany(By selector);
+        IList<string> GetSelectedTextOfMany(By selector, bool retryOnDomFailure);
         IList<string> GetSelectedTextOfMany(By selector, TimeSpan timeout);
+        IList<string> GetSelectedTextOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
 
         void SetText(By selector, string text);
         void SetText(By selector, string text, TimeSpan timeout);
