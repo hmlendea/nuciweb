@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-
+using NuciWeb.Utils;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
@@ -248,8 +248,22 @@ namespace NuciWeb
 
         public string GetAttribute(By selector, string attribute)
             => GetAttribute(selector, attribute, DefaultTimeout);
+        public string GetAttribute(By selector, string attribute, bool retryOnDomFailure)
+            => GetAttribute(selector, attribute, DefaultTimeout, retryOnDomFailure);
         public string GetAttribute(By selector, string attribute, TimeSpan timeout)
-            => GetElement(selector, timeout).GetAttribute(attribute);
+            => GetAttribute(selector, attribute, DefaultTimeout, false);
+        public string GetAttribute(By selector, string attribute, TimeSpan timeout, bool retryOnDomFailure)
+        {
+            if (retryOnDomFailure)
+            {
+                return ExecutionUtils.RetryUntilTheResultIsNotNull(
+                    this,
+                    () => GetElement(selector, timeout).GetAttribute(attribute),
+                    timeout);
+            }
+
+            return GetElement(selector, timeout).GetAttribute(attribute);
+        }
 
         public IList<string> GetAttributeOfMany(By selector, string attribute)
             => GetAttributeOfMany(selector, attribute, DefaultTimeout);
@@ -258,8 +272,12 @@ namespace NuciWeb
 
         public string GetClass(By selector)
             => GetClass(selector, DefaultTimeout);
+        public string GetClass(By selector, bool retryOnDomFailure)
+            => GetClass(selector, DefaultTimeout, retryOnDomFailure);
         public string GetClass(By selector, TimeSpan timeout)
-            => GetAttribute(selector, "class", timeout);
+            => GetClass(selector, DefaultTimeout, false);
+        public string GetClass(By selector, TimeSpan timeout, bool retryOnDomFailure)
+            => GetAttribute(selector, "class", timeout, retryOnDomFailure);
 
         public IList<string> GetClassOfMany(By selector)
             => GetClassOfMany(selector, DefaultTimeout);
@@ -273,8 +291,12 @@ namespace NuciWeb
 
         public string GetHyperlink(By selector)
             => GetHyperlink(selector, DefaultTimeout);
+        public string GetHyperlink(By selector, bool retryOnDomFailure)
+            => GetHyperlink(selector, DefaultTimeout, retryOnDomFailure);
         public string GetHyperlink(By selector, TimeSpan timeout)
-            => GetAttribute(selector, "href", timeout);
+            => GetHyperlink(selector, timeout, false);
+        public string GetHyperlink(By selector, TimeSpan timeout, bool retryOnDomFailure)
+            => GetAttribute(selector, "href", timeout, retryOnDomFailure);
 
         public IList<string> GetHyperlinkOfMany(By selector)
             => GetHyperlinkOfMany(selector, DefaultTimeout);
@@ -283,8 +305,12 @@ namespace NuciWeb
 
         public string GetSource(By selector)
             => GetSource(selector, DefaultTimeout);
+        public string GetSource(By selector, bool retryOnDomFailure)
+            => GetSource(selector, DefaultTimeout, retryOnDomFailure);
         public string GetSource(By selector, TimeSpan timeout)
-            => GetAttribute(selector, "src", timeout);
+            => GetSource(selector, DefaultTimeout, false);
+        public string GetSource(By selector, TimeSpan timeout, bool retryOnDomFailure)
+            => GetAttribute(selector, "src", timeout, retryOnDomFailure);
 
         public IList<string> GetSourceOfMany(By selector)
             => GetSourceOfMany(selector, DefaultTimeout);
@@ -293,8 +319,12 @@ namespace NuciWeb
 
         public string GetStyle(By selector)
             => GetStyle(selector, DefaultTimeout);
+        public string GetStyle(By selector, bool retryOnDomFailure)
+            => GetStyle(selector, DefaultTimeout, retryOnDomFailure);
         public string GetStyle(By selector, TimeSpan timeout)
-            => GetAttribute(selector, "style", timeout);
+            => GetStyle(selector, DefaultTimeout, false);
+        public string GetStyle(By selector, TimeSpan timeout, bool retryOnDomFailure)
+            => GetAttribute(selector, "style", timeout, retryOnDomFailure);
 
         public IList<string> GetStyleOfMany(By selector)
             => GetStyleOfMany(selector, DefaultTimeout);
@@ -303,8 +333,12 @@ namespace NuciWeb
 
         public string GetId(By selector)
             => GetId(selector, DefaultTimeout);
+        public string GetId(By selector, bool retryOnDomFailure)
+            => GetId(selector, DefaultTimeout, retryOnDomFailure);
         public string GetId(By selector, TimeSpan timeout)
-            => GetAttribute(selector, "id", timeout);
+            => GetId(selector, DefaultTimeout, false);
+        public string GetId(By selector, TimeSpan timeout, bool retryOnDomFailure)
+            => GetAttribute(selector, "id", timeout, retryOnDomFailure);
 
         public IList<string> GetIdOfMany(By selector)
             => GetIdOfMany(selector, DefaultTimeout);
@@ -313,8 +347,12 @@ namespace NuciWeb
 
         public string GetValue(By selector)
             => GetValue(selector, DefaultTimeout);
+        public string GetValue(By selector, bool retryOnDomFailure)
+            => GetValue(selector, DefaultTimeout, retryOnDomFailure);
         public string GetValue(By selector, TimeSpan timeout)
-            => GetAttribute(selector, "value", timeout);
+            => GetValue(selector, DefaultTimeout, false);
+        public string GetValue(By selector, TimeSpan timeout, bool retryOnDomFailure)
+            => GetAttribute(selector, "value", timeout, retryOnDomFailure);
 
         public IList<string> GetValueOfMany(By selector)
             => GetValueOfMany(selector, DefaultTimeout);
@@ -323,8 +361,22 @@ namespace NuciWeb
 
         public string GetText(By selector)
             => GetText(selector, DefaultTimeout);
+        public string GetText(By selector, bool retryOnDomFailure)
+            => GetText(selector, DefaultTimeout, retryOnDomFailure);
         public string GetText(By selector, TimeSpan timeout)
-            => GetElement(selector, timeout).Text;
+            => GetText(selector, DefaultTimeout, false);
+        public string GetText(By selector, TimeSpan timeout, bool retryOnDomFailure)
+        {
+            if (retryOnDomFailure)
+            {
+                return ExecutionUtils.RetryUntilTheResultIsNotNull(
+                    this,
+                    () => GetElement(selector, timeout).Text,
+                    timeout);
+            }
+
+            return GetElement(selector, timeout).Text;
+        }
 
         public IList<string> GetTextOfMany(By selector)
             => GetTextOfMany(selector, DefaultTimeout);
