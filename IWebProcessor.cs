@@ -13,17 +13,19 @@ namespace NuciWeb
         string Name { get; }
 
         /// <summary>
-        /// Gets the tabs currently open in the web processor.
+        /// Gets the list of tabs currently managed by this web processor.
+        /// Each tab is represented by its window handle.
         /// </summary>
         IList<string> Tabs { get; }
 
         /// <summary>
-        /// Gets the tabs currently open in the driver window.
+        /// Gets the list of all tabs (window handles) currently managed by the driver.
+        /// This includes all tabs, not just those managed by this processor.
         /// </summary>
         IList<string> DriverWindowTabs { get; }
 
         /// <summary>
-        /// Gets the current tab in the web processor.
+        /// Gets the current tab (window handle) that this processor is working with.
         /// </summary>
         string CurrentTab { get; }
 
@@ -75,14 +77,14 @@ namespace NuciWeb
         /// Navigates to the specified URL in the current tab of the web processor.
         /// </summary>
         /// <param name="url">The URL to navigate to.</param>
-        /// <param name="retryDelay">The delay to wait before retrying the request if
+        /// <param name="retryDelay">The delay to wait before retrying the request if it fails.</param>
         void GoToUrl(string url, TimeSpan retryDelay);
         /// <summary>
         /// Navigates to the specified URL in the current tab of the web processor.
         /// </summary>
         /// <param name="url">The URL to navigate to.</param>
         /// <param name="httpRetries">The number of HTTP retries to attempt if the request fails.</param>
-        /// <param name="retryDelay">The delay to wait before retrying the request if
+        /// <param name="retryDelay">The delay to wait before retrying the request if it fails.</param>
         void GoToUrl(string url, int httpRetries, TimeSpan retryDelay);
 
         /// <summary>
@@ -295,6 +297,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the element against.</param>
         /// <returns>A list of class names of the first matching element.</returns>
         IList<string> GetClasses(By selector);
+
         /// <summary>
         /// Gets the class names of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -384,6 +387,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the element against.</param>
         /// <returns>The source of the first matching element.</returns>
         string GetSource(By selector);
+
         /// <summary>
         /// Gets the source of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -415,6 +419,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match elements against.</param>
         /// <returns>A list of sources of all matching elements.</returns>
         IList<string> GetSourceOfMany(By selector);
+
         /// <summary>
         /// Gets the sources of all elements matching the selector in the current tab of the web processor.
         /// </summary>
@@ -446,6 +451,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the element against.</param>
         /// <returns>The style of the first matching element.</returns>
         string GetStyle(By selector);
+
         /// <summary>
         /// Gets the style of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -477,6 +483,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match elements against.</param>
         /// <returns>A list of styles of all matching elements.</returns>
         IList<string> GetStyleOfMany(By selector);
+
         /// <summary>
         /// Gets the styles of all elements matching the selector in the current tab of the web processor.
         /// </summary>
@@ -484,6 +491,7 @@ namespace NuciWeb
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of styles of all matching elements.</returns>
         IList<string> GetStyleOfMany(By selector, bool retryOnDomFailure);
+
         /// <summary>
         /// Gets the styles of all elements matching the selector in the current tab of the web processor.
         /// </summary>
@@ -507,6 +515,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the element against.</param>
         /// <returns>The ID of the first matching element.</returns>
         string GetId(By selector);
+
         /// <summary>
         /// Gets the ID of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -514,6 +523,7 @@ namespace NuciWeb
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The ID of the first matching element.</returns>
         string GetId(By selector, bool retryOnDomFailure);
+
         /// <summary>
         /// Gets the ID of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -537,6 +547,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match elements against.</param>
         /// <returns>A list of IDs of all matching elements.</returns>
         IList<string> GetIdOfMany(By selector);
+
         /// <summary>
         /// Gets the IDs of all elements matching the selector in the current tab of the web processor.
         /// </summary>
@@ -544,6 +555,7 @@ namespace NuciWeb
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of IDs of all matching elements.</returns>
         IList<string> GetIdOfMany(By selector, bool retryOnDomFailure);
+
         /// <summary>
         /// Gets the IDs of all elements matching the selector in the current tab of the web processor.
         /// </summary>
@@ -551,6 +563,7 @@ namespace NuciWeb
         /// <param name="timeout">The timeout for getting the IDs.</param>
         /// <returns>A list of IDs of all matching elements.</returns>
         IList<string> GetIdOfMany(By selector, TimeSpan timeout);
+
         /// <summary>
         /// Gets the IDs of all elements matching the selector in the current tab of the web processor.
         /// </summary>
@@ -566,12 +579,14 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the element against.</param>
         /// <returns>The value of the first matching element.</returns>
         string GetValue(By selector);
+
         /// <summary>
         /// Gets the value of the first element matching the selector in the current tab of the web processor.
         /// </summary>
         /// <param name="selector">The selector to match the element against.</param>
         /// <returns>The value of the first matching element.</returns>
         string GetValue(By selector, bool retryOnDomFailure);
+
         /// <summary>
         /// Gets the value of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -579,6 +594,7 @@ namespace NuciWeb
         /// <param name="timeout">The timeout for getting the value.</param>
         /// <returns>The value of the first matching element.</returns>
         string GetValue(By selector, TimeSpan timeout);
+
         /// <summary>
         /// Gets the value of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -626,6 +642,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the element against.</param>
         /// <returns>The text of the first matching element.</returns>
         string GetText(By selector);
+
         /// <summary>
         /// Gets the text of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -633,6 +650,7 @@ namespace NuciWeb
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The text of the first matching element.</returns>
         string GetText(By selector, bool retryOnDomFailure);
+
         /// <summary>
         /// Gets the text of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -640,6 +658,7 @@ namespace NuciWeb
         /// <param name="timeout">The timeout for getting the text.</param>
         /// <returns>The text of the first matching element.</returns>
         string GetText(By selector, TimeSpan timeout);
+
         /// <summary>
         /// Gets the text of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -655,6 +674,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match elements against.</param>
         /// <returns>A list of text of all matching elements.</returns>
         IList<string> GetTextOfMany(By selector);
+
         /// <summary>
         /// Gets the text of all elements matching the selector in the current tab of the web processor.
         /// </summary>
@@ -662,6 +682,7 @@ namespace NuciWeb
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of text of all matching elements.</returns>
         IList<string> GetTextOfMany(By selector, bool retryOnDomFailure);
+
         /// <summary>
         /// Gets the text of all elements matching the selector in the current tab of the web processor.
         /// </summary>
@@ -685,6 +706,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the element against.</param>
         /// <returns>The selected text of the first matching element.</returns>
         string GetSelectedText(By selector);
+
         /// <summary>
         /// Gets the selected text of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -692,6 +714,7 @@ namespace NuciWeb
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The selected text of the first matching element.</returns>
         string GetSelectedText(By selector, bool retryOnDomFailure);
+
         /// <summary>
         /// Gets the selected text of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -715,6 +738,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match elements against.</param>
         /// <returns>A list of selected text of all matching elements.</returns>
         IList<string> GetSelectedTextOfMany(By selector);
+
         /// <summary>
         /// Gets the selected text of all elements matching the selector in the current tab of the web processor.
         /// </summary>
@@ -722,6 +746,7 @@ namespace NuciWeb
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of selected text of all matching elements.</returns>
         IList<string> GetSelectedTextOfMany(By selector, bool retryOnDomFailure);
+
         /// <summary>
         /// Gets the selected text of all elements matching the selector in the current tab of the web processor.
         /// </summary>
@@ -745,6 +770,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the element against.</param>
         /// <param name="text">The text to set as the value.</param>
         void SetText(By selector, string text);
+
         /// <summary>
         /// Sets the value of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -759,6 +785,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the element against.</param>
         /// <param name="text">The text to append to the value.</param>
         void AppendText(By selector, string text);
+
         /// <summary>
         /// Appends text to the value of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -772,6 +799,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="selector">The selector to match the element against.</param>
         void ClearText(By selector);
+
         /// <summary>
         /// Clears the text of the first element matching the selector in the current tab of the web processor.
         /// </summary>
@@ -786,6 +814,7 @@ namespace NuciWeb
         /// <param name="className">The class name to check for.</param>
         /// <returns>True if the element has the class, false otherwise.</returns>
         bool HasClass(By selector, string className);
+
         /// <summary>
         /// Checks if the first element matching the selector has a specific class in the current tab of the web processor.
         /// </summary>
@@ -855,6 +884,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="selectors">The selectors to match elements against.</param>
         void WaitForAnyElementToExist(params By[] selectors);
+
         /// <summary>
         /// Waits for any element matching the provided selectors to exist in the current tab of the web processor.
         /// </summary>
@@ -874,12 +904,14 @@ namespace NuciWeb
         /// </summary>
         /// <param name="selectors">The selectors to match elements against.</param>
         void WaitForAllElementsToExist(params By[] selectors);
+
         /// <summary>
         /// Waits for all elements matching the provided selectors to exist in the current tab of the web processor.
         /// </summary>
         /// <param name="selectors">The selectors to match elements against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
         void WaitForAllElementsToExist(bool waitIndefinetely, params By[] selectors);
+
         /// <summary>
         /// Waits for all elements matching the provided selectors to exist in the current tab of the web processor.
         /// </summary>
@@ -892,12 +924,14 @@ namespace NuciWeb
         /// </summary>
         /// <param name="selectors">The selectors to match elements against.</param>
         void WaitForAnyElementToBeVisible(params By[] selectors);
+
         /// <summary>
         /// Waits for any element matching the provided selectors to be visible in the current tab of the web processor.
         /// </summary>
         /// <param name="selectors">The selectors to match elements against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
         void WaitForAnyElementToBeVisible(bool waitIndefinetely, params By[] selectors);
+
         /// <summary>
         /// Waits for any element matching the provided selectors to be visible in the current tab of the web processor.
         /// </summary>
@@ -910,12 +944,14 @@ namespace NuciWeb
         /// </summary>
         /// <param name="selectors">The selectors to match elements against.</param>
         void WaitForAllElementsToBeVisible(params By[] selectors);
+
         /// <summary>
         /// Waits for all elements matching the provided selectors to be visible in the current tab of the web processor.
         /// </summary>
         /// <param name="selectors">The selectors to match elements against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
         void WaitForAllElementsToBeVisible(bool waitIndefinetely, params By[] selectors);
+
         /// <summary>
         /// Waits for all elements matching the provided selectors to be visible in the current tab of the web processor.
         /// </summary>
@@ -928,12 +964,14 @@ namespace NuciWeb
         /// </summary>
         /// <param name="selector">The selector to match the element against.</param>
         void WaitForElementToExist(By selector);
+
         /// <summary>
         /// Waits for an element matching the provided selector to exist in the current tab of the web processor.
         /// </summary>
         /// <param name="selector">The selector to match the element against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
         void WaitForElementToExist(By selector, bool waitIndefinetely);
+
         /// <summary>
         /// Waits for an element matching the provided selector to exist in the current tab of the web processor.
         /// </summary>
@@ -946,12 +984,14 @@ namespace NuciWeb
         /// </summary>
         /// <param name="selector">The selector to match the element against.</param>
         void WaitForElementToDisappear(By selector);
+
         /// <summary>
         /// Waits for an element matching the provided selector to disappear in the current tab of the web processor.
         /// </summary>
         /// <param name="selector">The selector to match the element against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
         void WaitForElementToDisappear(By selector, bool waitIndefinetely);
+
         /// <summary>
         /// Waits for an element matching the provided selector to disappear in the current tab of the web processor.
         /// </summary>
@@ -984,12 +1024,14 @@ namespace NuciWeb
         /// </summary>
         /// <param name="selector">The selector to match the element against.</param>
         void WaitForElementToBeInvisible(By selector);
+
         /// <summary>
         /// Waits for an element matching the provided selector to be invisible in the current tab of the web processor.
         /// </summary>
         /// <param name="selector">The selector to match the element against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
         void WaitForElementToBeInvisible(By selector, bool waitIndefinetely);
+
         /// <summary>
         /// Waits for an element matching the provided selector to be invisible in the current tab of the web processor.
         /// </summary>
@@ -1003,6 +1045,7 @@ namespace NuciWeb
         /// <param name="selectors">The selectors to match elements against.</param>
         /// <returns>True if all elements exist, false otherwise.</returns>
         bool DoAllElementsExist(params By[] selectors);
+
         /// <summary>
         /// Checks if any element matching the provided selectors exists in the current tab of the web processor.
         /// </summary>
@@ -1022,12 +1065,14 @@ namespace NuciWeb
         /// <param name="selectors">The selectors to match elements against.</param>
         /// <returns>True if all elements are visible, false otherwise.</returns>
         bool AreAllElementsVisible(params By[] selectors);
+
         /// <summary>
         /// Checks if any element matching the provided selectors is visible in the current tab of the web processor.
         /// </summary>
         /// <param name="selectors">The selectors to match elements against.</param>
         /// <returns>True if any element is visible, false otherwise.</returns>
         bool IsAnyElementVisible(params By[] selectors);
+
         /// <summary>
         /// Checks if an element matching the provided selector is visible in the current tab of the web processor.
         /// </summary>
@@ -1040,6 +1085,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="selector">The selector to match the element against.</param>
         void MoveToElement(By selector);
+
         /// <summary>
         /// Moves the mouse cursor to the first element matching the provided selector in the current tab of the web processor.
         /// </summary>
@@ -1058,6 +1104,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="selector">The selector to match the element against.</param>
         void Click(By selector);
+
         /// <summary>
         /// Clicks on the first element matching the provided selector in the current tab of the web processor.
         /// </summary>
@@ -1071,6 +1118,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the element against.</param>
         /// <param name="status">The status to wait for after clicking.</param>
         void UpdateCheckbox(By selector, bool status);
+
         /// <summary>
         /// Clicks on the first element matching the provided selector in the current tab of the web processor.
         /// </summary>
@@ -1085,6 +1133,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the select element against.</param>
         /// <param name="index">The index of the option to select.</param>
         void SelectOptionByIndex(By selector, int index);
+
         /// <summary>
         /// Selects an option by index in the first select element matching the provided selector in the current tab of the web processor.
         /// </summary>
@@ -1099,6 +1148,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the select element against.</param>
         /// <param name="value">The value of the option to select.</param>
         void SelectOptionByValue(By selector, object value);
+
         /// <summary>
         /// Selects an option by value in the first select element matching the provided selector in the current tab of the web processor.
         /// </summary>
@@ -1113,6 +1163,7 @@ namespace NuciWeb
         /// <param name="selector">The selector to match the select element against.</param>
         /// <param name="text">The text of the option to select.</param>
         void SelectOptionByText(By selector, string text);
+
         /// <summary>
         /// Selects an option by text in the first select element matching the provided selector in the current tab of the web processor.
         /// </summary>
@@ -1126,6 +1177,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="selector">The selector to match the select element against.</param>
         void SelectRandomOption(By selector);
+
         /// <summary>
         /// Selects a random option in the first select element matching the provided selector in the current tab of the web processor.
         /// </summary>
