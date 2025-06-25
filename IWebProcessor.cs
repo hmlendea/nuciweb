@@ -5,6 +5,19 @@ using OpenQA.Selenium;
 
 namespace NuciWeb
 {
+    /// <summary>
+    /// Interface for a web processor that manages browser tabs and interactions.
+    /// This interface provides methods for tab management, navigation, element interaction,
+    /// and alert handling in a web browser context.
+    /// It is designed to be implemented by classes that handle web automation tasks,
+    /// such as opening URLs, switching between tabs, and interacting with web elements.
+    /// The interface also includes methods for executing scripts, handling alerts,
+    /// and retrieving information from the current page, such as HTML source, attributes,
+    /// class names, hyperlinks, styles, IDs, and more.
+    /// Implementations of this interface should ensure proper resource management by implementing IDisposable.
+    /// The interface is intended to be used in scenarios where web automation is required,
+    /// such as testing, web scraping, or browser automation tasks.
+    /// </summary>
     public interface IWebProcessor : IDisposable
     {
         /// <summary>

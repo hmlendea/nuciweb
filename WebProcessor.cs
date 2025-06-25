@@ -9,6 +9,31 @@ using OpenQA.Selenium.Support.UI;
 
 namespace NuciWeb
 {
+    /// <summary>
+    /// Represents a web processor that manages browser tabs and interactions with the web.
+    /// This class provides methods to create, switch, and close tabs, navigate to URLs,
+    /// execute scripts, handle alerts, and interact with web elements.
+    /// It also provides functionality to manage iframes, retrieve page source, and get
+    /// attributes of elements. The web processor is designed to work with a specific
+    /// instance of <see cref="IWebDriver"/> and allows for easy management of multiple
+    /// tabs within the same browser session.
+    /// The processor maintains a list of tabs, the current tab, and provides methods
+    /// to perform various operations on the web page, such as navigating to URLs,
+    /// switching to iframes, and executing JavaScript. It also includes methods for
+    /// retrieving element attributes, class names, hyperlinks, and handling alerts.
+    /// The web processor is intended to be used in scenarios where browser automation
+    /// is required, such as web scraping, automated testing, or browser-based tasks
+    /// in a .NET application. It abstracts the complexity of managing browser tabs and
+    /// provides a simple interface for developers to interact with web pages.
+    /// The class implements the <see cref="IWebProcessor"/> interface, ensuring that it
+    /// provides the necessary methods for managing web interactions in a consistent manner.
+    /// </summary>
+    /// <param name="driver">
+    /// The <see cref="IWebDriver"/> instance that this processor will use to interact
+    /// with the web browser. This driver is responsible for controlling the browser
+    /// and executing commands such as navigating to URLs, switching tabs, and interacting
+    /// with web elements.
+    /// </param>
     public sealed class WebProcessor(IWebDriver driver) : IWebProcessor
     {
         /// <summary>
@@ -1909,7 +1934,7 @@ namespace NuciWeb
                         return element;
                     }
                 }
-                catch {  }
+                catch { }
                 finally
                 {
                     Wait();
@@ -1953,7 +1978,7 @@ namespace NuciWeb
                         return elements;
                     }
                 }
-                catch {  }
+                catch { }
                 finally
                 {
                     Wait();
@@ -1975,7 +2000,7 @@ namespace NuciWeb
                 {
                     return driver.SwitchTo().Alert();
                 }
-                catch {  }
+                catch { }
                 finally
                 {
                     Wait();

@@ -7,6 +7,29 @@ using OpenQA.Selenium.Firefox;
 
 namespace NuciWeb
 {
+    /// <summary>
+    /// Initialises a web driver for browser automation.
+    /// This class provides methods to create instances of <see cref="IWebDriver"/>
+    /// for both Firefox and Chrome browsers, depending on the availability of the
+    /// respective drivers on the system.
+    /// It allows configuration of the driver based on debug mode and page load timeout settings.
+    /// The driver can be set to run in headless mode with image loading disabled when not
+    /// in debug mode, and it will maximize the browser window upon initialization.
+    /// The class also ensures that the user agent does not contain "Headless" for Chrome
+    /// to avoid issues with websites that may block headless browsers.
+    /// The methods provided will return an instance of <see cref="IWebDriver"/> that
+    /// is ready for use in browser automation tasks.
+    /// If geckodriver is available, a Firefox driver will be returned; otherwise,
+    /// a Chrome driver will be returned.
+    /// The driver will be configured with a specified page load timeout, which defaults to 90
+    /// seconds, but can be adjusted as needed.
+    /// The debug mode setting allows for more verbose logging and interaction during development,
+    /// while the headless mode is suitable for production or automated testing environments.
+    /// The class is designed to be used in scenarios where browser automation is required,
+    /// such as web scraping, automated testing, or browser-based tasks in a .NET application.
+    /// It abstracts the complexity of driver initialization and configuration, providing a simple
+    /// interface for developers to obtain a ready-to-use web driver instance.
+    /// </summary>
     public sealed class WebDriverInitialiser
     {
         /// <summary>
