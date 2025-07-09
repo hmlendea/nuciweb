@@ -94,13 +94,19 @@ namespace NuciWeb
                 PageLoadStrategy = PageLoadStrategy.None
             };
 
-            options.AddArgument("--disable-save-password-bubble");
             options.SetPreference("privacy.firstparty.isolate", false);
 
             if (!isDebugModeEnabled)
             {
+                Environment.SetEnvironmentVariable("MOZ_HEADLESS", "1");
+                Environment.SetEnvironmentVariable("MOZ_DISABLE_CONTENT_SANDBOX", "1");
+                Environment.SetEnvironmentVariable("MOZ_DISABLE_GFX_SANDBOX", "1");
+
                 options.AddArgument("--headless");
                 options.SetPreference("permissions.default.image", 2);
+
+                options.SetPreference("media.navigator.enabled", false);
+                options.SetPreference("media.navigator.video.enabled", false);
             }
 
             FirefoxDriverService service = FirefoxDriverService.CreateDefaultService();
