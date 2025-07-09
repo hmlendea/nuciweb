@@ -99,6 +99,10 @@ namespace NuciWeb
 
             if (!isDebugModeEnabled)
             {
+                Environment.SetEnvironmentVariable("MOZ_HEADLESS", "1");
+                Environment.SetEnvironmentVariable("MOZ_DISABLE_CONTENT_SANDBOX", "1");
+                Environment.SetEnvironmentVariable("MOZ_DISABLE_GFX_SANDBOX", "1");
+
                 options.AddArgument("--headless");
                 options.SetPreference("permissions.default.image", 2);
             }
