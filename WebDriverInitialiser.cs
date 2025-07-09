@@ -104,6 +104,9 @@ namespace NuciWeb
 
                 options.AddArgument("--headless");
                 options.SetPreference("permissions.default.image", 2);
+
+                options.SetPreference("media.navigator.enabled", false);
+                options.SetPreference("media.navigator.video.enabled", false);
             }
 
             FirefoxDriverService service = FirefoxDriverService.CreateDefaultService();
