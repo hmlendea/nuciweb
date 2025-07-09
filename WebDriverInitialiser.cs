@@ -94,7 +94,6 @@ namespace NuciWeb
                 PageLoadStrategy = PageLoadStrategy.None
             };
 
-            options.AddArgument("--disable-save-password-bubble");
             options.SetPreference("privacy.firstparty.isolate", false);
 
             if (!isDebugModeEnabled)
