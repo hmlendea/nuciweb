@@ -188,16 +188,6 @@ namespace NuciWeb
         /// <summary>
         /// Switches to the specified iframe in the current tab of the web processor.
         /// </summary>
-        /// <param name="index">The index of the iframe to switch to.</param>
-        public void SwitchToIframe(int index)
-        {
-            SwitchToTab(CurrentTab);
-            PerformSwitchToIframe(index);
-        }
-
-        /// <summary>
-        /// Switches to the specified iframe in the current tab of the web processor.
-        /// </summary>
         /// <param name="xpath">The XPath for the iframe to switch to.</param>
         public void SwitchToIframe(string xpath) => SwitchToIframe(xpath, DefaultTimeout);
         /// <summary>
@@ -1694,7 +1684,6 @@ namespace NuciWeb
         protected abstract void PerformSelectOptionByText(string xpath, string text, TimeSpan timeout);
         protected abstract void PerformSelectOptionByValue(string xpath, object value, TimeSpan timeout);
         protected abstract void PerformSetText(string xpath, string text, TimeSpan timeout);
-        protected abstract void PerformSwitchToIframe(int index);
         protected abstract void PerformSwitchToIframe(string xpath);
         protected abstract void PerformSwitchToTab(string tab);
     }

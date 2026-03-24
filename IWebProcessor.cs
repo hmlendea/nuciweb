@@ -101,11 +101,6 @@ namespace NuciWeb
         /// <summary>
         /// Switches to the specified iframe in the current tab of the web processor.
         /// </summary>
-        /// <param name="index">The index of the iframe to switch to.</param>
-        void SwitchToIframe(int index);
-        /// <summary>
-        /// Switches to the specified iframe in the current tab of the web processor.
-        /// </summary>
         /// <param name="xpath">The XPath for the iframe to switch to.</param>
         void SwitchToIframe(string xpath);
         /// <summary>
