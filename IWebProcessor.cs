@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-using OpenQA.Selenium;
-
 namespace NuciWeb
 {
     /// <summary>
@@ -30,12 +28,6 @@ namespace NuciWeb
         /// Each tab is represented by its window handle.
         /// </summary>
         IList<string> Tabs { get; }
-
-        /// <summary>
-        /// Gets the list of all tabs (window handles) currently managed by the driver.
-        /// This includes all tabs, not just those managed by this processor.
-        /// </summary>
-        IList<string> DriverWindowTabs { get; }
 
         /// <summary>
         /// Gets the current tab (window handle) that this processor is working with.
@@ -103,8 +95,8 @@ namespace NuciWeb
         /// <summary>
         /// Navigates to the specified iframe in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector for the iframe to navigate to.</param>
-        void GoToIframe(By selector);
+        /// <param name="xpath">The XPath for the iframe to navigate to.</param>
+        void GoToIframe(string xpath);
 
         /// <summary>
         /// Switches to the specified iframe in the current tab of the web processor.
@@ -114,14 +106,14 @@ namespace NuciWeb
         /// <summary>
         /// Switches to the specified iframe in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector for the iframe to switch to.</param>
-        void SwitchToIframe(By selector);
+        /// <param name="xpath">The XPath for the iframe to switch to.</param>
+        void SwitchToIframe(string xpath);
         /// <summary>
         /// Switches to the specified iframe in the current tab of the web processor with a timeout.
         /// </summary>
-        /// <param name="selector">The selector for the iframe to switch to.</param>
+        /// <param name="xpath">The XPath for the iframe to switch to.</param>
         /// <param name="timeout">The timeout for switching to the iframe.</param>
-        void SwitchToIframe(By selector, TimeSpan timeout);
+        void SwitchToIframe(string xpath, TimeSpan timeout);
 
         /// <summary>
         /// Refreshes the current tab in the web processor.
@@ -167,689 +159,676 @@ namespace NuciWeb
         string GetPageSource();
 
         /// <summary>
-        /// Gets the elements matching the specified selector in the current tab of the web processor.
+        /// Gets the value of the specified attribute for the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
-        /// <returns>A list of elements matching the selector.</returns>
-        IList<IWebElement> GetElements(By selector);
-        /// <summary>
-        /// Gets the elements matching the specified selector in the current tab of the web processor.
-        /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
-        /// <returns>The number of elements matching the selector.</returns>
-        int GetElementsCount(By selector);
-
-        /// <summary>
-        /// Gets the value of the specified attribute for the first element matching the selector in the current tab of the web processor.
-        /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="attribute">The name of the attribute to get the value of.</param>
         /// <returns>The value of the attribute for the first matching element.</returns>
-        string GetAttribute(By selector, string attribute);
+        string GetAttribute(string xpath, string attribute);
         /// <summary>
-        /// Gets the value of the specified attribute for the first element matching the selector in the current tab of the web processor.
+        /// Gets the value of the specified attribute for the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="attribute">The name of the attribute to get the value of.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The value of the attribute for the first matching element.</returns>
-        string GetAttribute(By selector, string attribute, bool retryOnDomFailure);
+        string GetAttribute(string xpath, string attribute, bool retryOnDomFailure);
         /// <summary>
-        /// Gets the value of the specified attribute for the first element matching the selector in the current tab of the web processor.
+        /// Gets the value of the specified attribute for the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="attribute">The name of the attribute to get the value of.</param>
         /// <param name="timeout">The timeout for getting the attribute value.</param>
         /// <returns>The value of the attribute for the first matching element.</returns>
-        string GetAttribute(By selector, string attribute, TimeSpan timeout);
+        string GetAttribute(string xpath, string attribute, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the value of the specified attribute for the first element matching the selector in the current tab of the web processor.
+        /// Gets the value of the specified attribute for the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="attribute">The name of the attribute to get the value of.</param>
         /// <param name="timeout">The timeout for getting the attribute value.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>The value of the attribute for the first matching element.</returns>
-        string GetAttribute(By selector, string attribute, TimeSpan timeout, bool retryOnDomFailure);
+        string GetAttribute(string xpath, string attribute, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the values of the specified attribute for all elements matching the selector in the current tab of the web processor.
+        /// Gets the values of the specified attribute for all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="attribute">The name of the attribute to get the values of.</param>
         /// <returns>A list of values of the attribute for all matching elements.</returns>
-        IList<string> GetAttributeOfMany(By selector, string attribute);
+        IList<string> GetAttributeOfMany(string xpath, string attribute);
         /// <summary>
-        /// Gets the values of the specified attribute for all elements matching the selector in the current tab of the web processor.
+        /// Gets the values of the specified attribute for all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="attribute">The name of the attribute to get the values of.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of values of the attribute for all matching elements.</returns>
-        IList<string> GetAttributeOfMany(By selector, string attribute, bool retryOnDomFailure);
+        IList<string> GetAttributeOfMany(string xpath, string attribute, bool retryOnDomFailure);
         /// <summary>
-        /// Gets the values of the specified attribute for all elements matching the selector in the current tab of the web processor.
+        /// Gets the values of the specified attribute for all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
-        /// <param name="attribute">The name of the attribute to get the values of.</param>
-        /// <param name="timeout">The timeout for getting the attribute values.</param>
-        /// <returns>A list of values of the attribute for all matching elements.</returns>
-        IList<string> GetAttributeOfMany(By selector, string attribute, TimeSpan timeout);
-        /// <summary>
-        /// Gets the values of the specified attribute for all elements matching the selector in the current tab of the web processor.
-        /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="attribute">The name of the attribute to get the values of.</param>
         /// <param name="timeout">The timeout for getting the attribute values.</param>
+        /// <returns>A list of values of the attribute for all matching elements.</returns>
+        IList<string> GetAttributeOfMany(string xpath, string attribute, TimeSpan timeout);
+        /// <summary>
+        /// Gets the values of the specified attribute for all elements matching the XPath in the current tab of the web processor.
+        /// </summary>
+        /// <param name="xpath">The XPath to match elements against.</param>
+        /// <param name="attribute">The name of the attribute to get the values of.</param>
+        /// <param name="timeout">The timeout for getting the attribute values.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>A list of values of the attribute for all matching elements.</returns>
-        IList<string> GetAttributeOfMany(By selector, string attribute, TimeSpan timeout, bool retryOnDomFailure);
+        IList<string> GetAttributeOfMany(string xpath, string attribute, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the class name of the first element matching the selector in the current tab of the web processor.
+        /// Gets the class name of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>The class name of the first matching element.</returns>
-        string GetClass(By selector);
+        string GetClass(string xpath);
         /// <summary>
-        /// Gets the class name of the first element matching the selector in the current tab of the web processor.
+        /// Gets the class name of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The class name of the first matching element.</returns>
-        string GetClass(By selector, bool retryOnDomFailure);
+        string GetClass(string xpath, bool retryOnDomFailure);
         /// <summary>
-        /// Gets the class name of the first element matching the selector in the current tab of the web processor.
+        /// Gets the class name of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the class name.</param>
         /// <returns>The class name of the first matching element.</returns>
-        string GetClass(By selector, TimeSpan timeout);
+        string GetClass(string xpath, TimeSpan timeout);
         /// <summary>
-        /// Gets the class name of the first element matching the selector in the current tab of the web processor.
+        /// Gets the class name of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the class name.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>The class name of the first matching element.</returns>
-        string GetClass(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        string GetClass(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the class names of all elements matching the selector in the current tab of the web processor.
+        /// Gets the class names of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <returns>A list of class names of all matching elements.</returns>
-        IList<string> GetClassOfMany(By selector);
+        IList<string> GetClassOfMany(string xpath);
         /// <summary>
-        /// Gets the class names of all elements matching the selector in the current tab of the web processor.
+        /// Gets the class names of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of class names of all matching elements.</returns>
-        IList<string> GetClassOfMany(By selector, bool retryOnDomFailure);
+        IList<string> GetClassOfMany(string xpath, bool retryOnDomFailure);
         /// <summary>
-        /// Gets the class names of all elements matching the selector in the current tab of the web processor.
+        /// Gets the class names of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the class names.</param>
         /// <returns>A list of class names of all matching elements.</returns>
-        IList<string> GetClassOfMany(By selector, TimeSpan timeout);
+        IList<string> GetClassOfMany(string xpath, TimeSpan timeout);
         /// <summary>
-        /// Gets the class names of all elements matching the selector in the current tab of the web processor.
+        /// Gets the class names of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the class names.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>A list of class names of all matching elements.</returns>
-        IList<string> GetClassOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        IList<string> GetClassOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the class names of the first element matching the selector in the current tab of the web processor.
+        /// Gets the class names of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>A list of class names of the first matching element.</returns>
-        IList<string> GetClasses(By selector);
+        IList<string> GetClasses(string xpath);
 
         /// <summary>
-        /// Gets the class names of the first element matching the selector in the current tab of the web processor.
+        /// Gets the class names of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of class names of the first matching element.</returns>
-        IList<string> GetClasses(By selector, bool retryOnDomFailure);
+        IList<string> GetClasses(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the class names of the first element matching the selector in the current tab of the web processor.
+        /// Gets the class names of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the class names.</param>
         /// <returns>A list of class names of the first matching element.</returns>
-        IList<string> GetClasses(By selector, TimeSpan timeout);
+        IList<string> GetClasses(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the class names of the first element matching the selector in the current tab of the web processor.
+        /// Gets the class names of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the class names.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>A list of class names of the first matching element.</returns>
-        IList<string> GetClasses(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        IList<string> GetClasses(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the hyperlink of the first element matching the selector in the current tab of the web processor.
+        /// Gets the hyperlink of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>The hyperlink of the first matching element.</returns>
-        string GetHyperlink(By selector);
+        string GetHyperlink(string xpath);
         /// <summary>
-        /// Gets the hyperlink of the first element matching the selector in the current tab of the web processor.
+        /// Gets the hyperlink of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The hyperlink of the first matching element.</returns>
-        string GetHyperlink(By selector, bool retryOnDomFailure);
+        string GetHyperlink(string xpath, bool retryOnDomFailure);
         /// <summary>
-        /// Gets the hyperlink of the first element matching the selector in the current tab of the web processor.
+        /// Gets the hyperlink of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the hyperlink.</param>
         /// <returns>The hyperlink of the first matching element.</returns>
-        string GetHyperlink(By selector, TimeSpan timeout);
+        string GetHyperlink(string xpath, TimeSpan timeout);
         /// <summary>
-        /// Gets the hyperlink of the first element matching the selector in the current tab of the web processor.
+        /// Gets the hyperlink of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the hyperlink.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>The hyperlink of the first matching element.</returns>
-        string GetHyperlink(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        string GetHyperlink(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the hyperlinks of all elements matching the selector in the current tab of the web processor.
+        /// Gets the hyperlinks of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <returns>A list of hyperlinks of all matching elements.</returns>
-        IList<string> GetHyperlinkOfMany(By selector);
+        IList<string> GetHyperlinkOfMany(string xpath);
         /// <summary>
-        /// Gets the hyperlinks of all elements matching the selector in the current tab of the web processor.
+        /// Gets the hyperlinks of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of hyperlinks of all matching elements.</returns>
-        IList<string> GetHyperlinkOfMany(By selector, bool retryOnDomFailure);
+        IList<string> GetHyperlinkOfMany(string xpath, bool retryOnDomFailure);
         /// <summary>
-        /// Gets the hyperlinks of all elements matching the selector in the current tab of the web processor.
+        /// Gets the hyperlinks of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the hyperlinks.</param>
         /// <returns>A list of hyperlinks of all matching elements.</returns>
-        IList<string> GetHyperlinkOfMany(By selector, TimeSpan timeout);
+        IList<string> GetHyperlinkOfMany(string xpath, TimeSpan timeout);
         /// <summary>
-        /// Gets the hyperlinks of all elements matching the selector in the current tab of the web processor.
+        /// Gets the hyperlinks of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the hyperlinks.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>A list of hyperlinks of all matching elements.</returns>
-        IList<string> GetHyperlinkOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        IList<string> GetHyperlinkOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the source of the first element matching the selector in the current tab of the web processor.
+        /// Gets the source of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>The source of the first matching element.</returns>
-        string GetSource(By selector);
+        string GetSource(string xpath);
 
         /// <summary>
-        /// Gets the source of the first element matching the selector in the current tab of the web processor.
+        /// Gets the source of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The source of the first matching element.</returns>
-        string GetSource(By selector, bool retryOnDomFailure);
+        string GetSource(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the source of the first element matching the selector in the current tab of the web processor.
+        /// Gets the source of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the source.</param>
         /// <returns>The source of the first matching element.</returns>
-        string GetSource(By selector, TimeSpan timeout);
+        string GetSource(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the source of the first element matching the selector in the current tab of the web processor.
+        /// Gets the source of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the source.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>The source of the first matching element.</returns>
-        string GetSource(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        string GetSource(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the sources of all elements matching the selector in the current tab of the web processor.
+        /// Gets the sources of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <returns>A list of sources of all matching elements.</returns>
-        IList<string> GetSourceOfMany(By selector);
+        IList<string> GetSourceOfMany(string xpath);
 
         /// <summary>
-        /// Gets the sources of all elements matching the selector in the current tab of the web processor.
+        /// Gets the sources of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of sources of all matching elements.</returns>
-        IList<string> GetSourceOfMany(By selector, bool retryOnDomFailure);
+        IList<string> GetSourceOfMany(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the sources of all elements matching the selector in the current tab of the web processor.
+        /// Gets the sources of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the sources.</param>
         /// <returns>A list of sources of all matching elements.</returns>
-        IList<string> GetSourceOfMany(By selector, TimeSpan timeout);
+        IList<string> GetSourceOfMany(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the sources of all elements matching the selector in the current tab of the web processor.
+        /// Gets the sources of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the sources.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>A list of sources of all matching elements.</returns>
-        IList<string> GetSourceOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        IList<string> GetSourceOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the style of the first element matching the selector in the current tab of the web processor.
+        /// Gets the style of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>The style of the first matching element.</returns>
-        string GetStyle(By selector);
+        string GetStyle(string xpath);
 
         /// <summary>
-        /// Gets the style of the first element matching the selector in the current tab of the web processor.
+        /// Gets the style of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The style of the first matching element.</returns>
-        string GetStyle(By selector, bool retryOnDomFailure);
+        string GetStyle(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the style of the first element matching the selector in the current tab of the web processor.
+        /// Gets the style of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the style.</param>
         /// <returns>The style of the first matching element.</returns>
-        string GetStyle(By selector, TimeSpan timeout);
+        string GetStyle(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the style of the first element matching the selector in the current tab of the web processor.
+        /// Gets the style of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the style.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>The style of the first matching element.</returns>
-        string GetStyle(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        string GetStyle(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the styles of all elements matching the selector in the current tab of the web processor.
+        /// Gets the styles of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <returns>A list of styles of all matching elements.</returns>
-        IList<string> GetStyleOfMany(By selector);
+        IList<string> GetStyleOfMany(string xpath);
 
         /// <summary>
-        /// Gets the styles of all elements matching the selector in the current tab of the web processor.
+        /// Gets the styles of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of styles of all matching elements.</returns>
-        IList<string> GetStyleOfMany(By selector, bool retryOnDomFailure);
+        IList<string> GetStyleOfMany(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the styles of all elements matching the selector in the current tab of the web processor.
+        /// Gets the styles of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the styles.</param>
         /// <returns>A list of styles of all matching elements.</returns>
-        IList<string> GetStyleOfMany(By selector, TimeSpan timeout);
+        IList<string> GetStyleOfMany(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the styles of all elements matching the selector in the current tab of the web processor.
+        /// Gets the styles of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the styles.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>A list of styles of all matching elements.</returns>
-        IList<string> GetStyleOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        IList<string> GetStyleOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the ID of the first element matching the selector in the current tab of the web processor.
+        /// Gets the ID of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>The ID of the first matching element.</returns>
-        string GetId(By selector);
+        string GetId(string xpath);
 
         /// <summary>
-        /// Gets the ID of the first element matching the selector in the current tab of the web processor.
+        /// Gets the ID of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The ID of the first matching element.</returns>
-        string GetId(By selector, bool retryOnDomFailure);
+        string GetId(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the ID of the first element matching the selector in the current tab of the web processor.
+        /// Gets the ID of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the ID.</param>
         /// <returns>The ID of the first matching element.</returns>
-        string GetId(By selector, TimeSpan timeout);
+        string GetId(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the ID of the first element matching the selector in the current tab of the web processor.
+        /// Gets the ID of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the ID.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>The ID of the first matching element.</returns>
-        string GetId(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        string GetId(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the IDs of all elements matching the selector in the current tab of the web processor.
+        /// Gets the IDs of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <returns>A list of IDs of all matching elements.</returns>
-        IList<string> GetIdOfMany(By selector);
+        IList<string> GetIdOfMany(string xpath);
 
         /// <summary>
-        /// Gets the IDs of all elements matching the selector in the current tab of the web processor.
+        /// Gets the IDs of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of IDs of all matching elements.</returns>
-        IList<string> GetIdOfMany(By selector, bool retryOnDomFailure);
+        IList<string> GetIdOfMany(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the IDs of all elements matching the selector in the current tab of the web processor.
+        /// Gets the IDs of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the IDs.</param>
         /// <returns>A list of IDs of all matching elements.</returns>
-        IList<string> GetIdOfMany(By selector, TimeSpan timeout);
+        IList<string> GetIdOfMany(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the IDs of all elements matching the selector in the current tab of the web processor.
+        /// Gets the IDs of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the IDs.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>A list of IDs of all matching elements.</returns>
-        IList<string> GetIdOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        IList<string> GetIdOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the value of the first element matching the selector in the current tab of the web processor.
+        /// Gets the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>The value of the first matching element.</returns>
-        string GetValue(By selector);
+        string GetValue(string xpath);
 
         /// <summary>
-        /// Gets the value of the first element matching the selector in the current tab of the web processor.
+        /// Gets the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>The value of the first matching element.</returns>
-        string GetValue(By selector, bool retryOnDomFailure);
+        string GetValue(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the value of the first element matching the selector in the current tab of the web processor.
+        /// Gets the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the value.</param>
         /// <returns>The value of the first matching element.</returns>
-        string GetValue(By selector, TimeSpan timeout);
+        string GetValue(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the value of the first element matching the selector in the current tab of the web processor.
+        /// Gets the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the value.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>The value of the first matching element.</returns>
-        string GetValue(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        string GetValue(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the values of all elements matching the selector in the current tab of the web processor.
+        /// Gets the values of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <returns>A list of values of all matching elements.</returns>
-        IList<string> GetValueOfMany(By selector);
+        IList<string> GetValueOfMany(string xpath);
 
         /// <summary>
-        /// Gets the values of all elements matching the selector in the current tab of the web processor.
+        /// Gets the values of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of values of all matching elements.</returns>
-        IList<string> GetValueOfMany(By selector, bool retryOnDomFailure);
+        IList<string> GetValueOfMany(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the values of all elements matching the selector in the current tab of the web processor.
+        /// Gets the values of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the values.</param>
         /// <returns>A list of values of all matching elements.</returns>
-        IList<string> GetValueOfMany(By selector, TimeSpan timeout);
+        IList<string> GetValueOfMany(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the values of all elements matching the selector in the current tab of the web processor.
+        /// Gets the values of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the values.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>A list of values of all matching elements.</returns>
-        IList<string> GetValueOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        IList<string> GetValueOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>The text of the first matching element.</returns>
-        string GetText(By selector);
+        string GetText(string xpath);
 
         /// <summary>
-        /// Gets the text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The text of the first matching element.</returns>
-        string GetText(By selector, bool retryOnDomFailure);
+        string GetText(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the text.</param>
         /// <returns>The text of the first matching element.</returns>
-        string GetText(By selector, TimeSpan timeout);
+        string GetText(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the text.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>The text of the first matching element.</returns>
-        string GetText(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        string GetText(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <returns>A list of text of all matching elements.</returns>
-        IList<string> GetTextOfMany(By selector);
+        IList<string> GetTextOfMany(string xpath);
 
         /// <summary>
-        /// Gets the text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of text of all matching elements.</returns>
-        IList<string> GetTextOfMany(By selector, bool retryOnDomFailure);
+        IList<string> GetTextOfMany(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the text.</param>
         /// <returns>A list of text of all matching elements.</returns>
-        IList<string> GetTextOfMany(By selector, TimeSpan timeout);
+        IList<string> GetTextOfMany(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the text.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>A list of text of all matching elements.</returns>
-        IList<string> GetTextOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        IList<string> GetTextOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the selected text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the selected text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>The selected text of the first matching element.</returns>
-        string GetSelectedText(By selector);
+        string GetSelectedText(string xpath);
 
         /// <summary>
-        /// Gets the selected text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the selected text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The selected text of the first matching element.</returns>
-        string GetSelectedText(By selector, bool retryOnDomFailure);
+        string GetSelectedText(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the selected text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the selected text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
         /// <returns>The selected text of the first matching element.</returns>
-        string GetSelectedText(By selector, TimeSpan timeout);
+        string GetSelectedText(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the selected text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the selected text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>The selected text of the first matching element.</returns>
-        string GetSelectedText(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        string GetSelectedText(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the selected text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the selected text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <returns>A list of selected text of all matching elements.</returns>
-        IList<string> GetSelectedTextOfMany(By selector);
+        IList<string> GetSelectedTextOfMany(string xpath);
 
         /// <summary>
-        /// Gets the selected text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the selected text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of selected text of all matching elements.</returns>
-        IList<string> GetSelectedTextOfMany(By selector, bool retryOnDomFailure);
+        IList<string> GetSelectedTextOfMany(string xpath, bool retryOnDomFailure);
 
         /// <summary>
-        /// Gets the selected text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the selected text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
         /// <returns>A list of selected text of all matching elements.</returns>
-        IList<string> GetSelectedTextOfMany(By selector, TimeSpan timeout);
+        IList<string> GetSelectedTextOfMany(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Gets the selected text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the selected text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match elements against.</param>
+        /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
         /// <returns>A list of selected text of all matching elements.</returns>
-        IList<string> GetSelectedTextOfMany(By selector, TimeSpan timeout, bool retryOnDomFailure);
+        IList<string> GetSelectedTextOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
         /// <summary>
-        /// Sets the value of the first element matching the selector in the current tab of the web processor.
+        /// Sets the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="text">The text to set as the value.</param>
-        void SetText(By selector, string text);
+        void SetText(string xpath, string text);
 
         /// <summary>
-        /// Sets the value of the first element matching the selector in the current tab of the web processor.
+        /// Sets the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="text">The text to set as the value.</param>
         /// <param name="timeout">The timeout for setting the value.</param>
-        void SetText(By selector, string text, TimeSpan timeout);
+        void SetText(string xpath, string text, TimeSpan timeout);
 
         /// <summary>
-        /// Appends text to the value of the first element matching the selector in the current tab of the web processor.
+        /// Appends text to the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="text">The text to append to the value.</param>
-        void AppendText(By selector, string text);
+        void AppendText(string xpath, string text);
 
         /// <summary>
-        /// Appends text to the value of the first element matching the selector in the current tab of the web processor.
+        /// Appends text to the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="text">The text to append to the value.</param>
         /// <param name="timeout">The timeout for appending the text.</param>
-        void AppendText(By selector, string text, TimeSpan timeout);
+        void AppendText(string xpath, string text, TimeSpan timeout);
 
         /// <summary>
-        /// Clears the text of the first element matching the selector in the current tab of the web processor.
+        /// Clears the text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
-        void ClearText(By selector);
+        /// <param name="xpath">The XPath to match the element against.</param>
+        void ClearText(string xpath);
 
         /// <summary>
-        /// Clears the text of the first element matching the selector in the current tab of the web processor.
+        /// Clears the text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for clearing the text.</param>
-        void ClearText(By selector, TimeSpan timeout);
+        void ClearText(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Checks if the first element matching the selector has a specific class in the current tab of the web processor.
+        /// Checks if the first element matching the XPath has a specific class in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="className">The class name to check for.</param>
         /// <returns>True if the element has the class, false otherwise.</returns>
-        bool HasClass(By selector, string className);
+        bool HasClass(string xpath, string className);
 
         /// <summary>
-        /// Checks if the first element matching the selector has a specific class in the current tab of the web processor.
+        /// Checks if the first element matching the XPath has a specific class in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="className">The class name to check for.</param>
         /// <param name="timeout">The timeout for checking if the element has the class.</param>
         /// <returns>True if the element has the class, false otherwise.</returns>
-        bool HasClass(By selector, string className, TimeSpan timeout);
+        bool HasClass(string xpath, string className, TimeSpan timeout);
 
         /// <summary>
-        /// Checks if the first element matching the selector is selected in the current tab of the web processor.
+        /// Checks if the first element matching the XPath is selected in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>True if the element is selected, false otherwise.</returns>
-        bool IsSelected(By selector);
+        bool IsSelected(string xpath);
         /// <summary>
-        /// Checks if the first element matching the selector is selected in the current tab of the web processor.
+        /// Checks if the first element matching the XPath is selected in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for checking if the element is selected.</param>
         /// <returns>True if the element is selected, false otherwise.</returns>
-        bool IsSelected(By selector, TimeSpan timeout);
+        bool IsSelected(string xpath, TimeSpan timeout);
 
         /// <summary>
         /// Waits for the default amount of time.
@@ -872,330 +851,330 @@ namespace NuciWeb
         void Wait(TimeSpan timeSpan);
 
         /// <summary>
-        /// Waits for the text length of the first element matching the selector to reach a specified length in the current tab of the web processor.
+        /// Waits for the text length of the first element matching the XPath to reach a specified length in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="length">The length to wait for.</param>
-        void WaitForTextLength(By selector, int length);
+        void WaitForTextLength(string xpath, int length);
         /// <summary>
-        /// Waits for the text length of the first element matching the selector to reach a specified length in the current tab of the web processor.
+        /// Waits for the text length of the first element matching the XPath to reach a specified length in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="length">The length to wait for.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
-        void WaitForTextLength(By selector, int length, bool waitIndefinetely);
+        void WaitForTextLength(string xpath, int length, bool waitIndefinetely);
         /// <summary>
-        /// Waits for the text length of the first element matching the selector to reach a specified length in the current tab of the web processor.
+        /// Waits for the text length of the first element matching the XPath to reach a specified length in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="length">The length to wait for.</param>
         /// <param name="timeout">The timeout for waiting for the text length.</param>
-        void WaitForTextLength(By selector, int length, TimeSpan timeout);
+        void WaitForTextLength(string xpath, int length, TimeSpan timeout);
 
         /// <summary>
-        /// Waits for any element matching the provided selectors to exist in the current tab of the web processor.
+        /// Waits for any element matching the provided XPaths to exist in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
-        void WaitForAnyElementToExist(params By[] selectors);
+        /// <param name="xpaths">The XPaths to match elements against.</param>
+        void WaitForAnyElementToExist(params string[] xpaths);
 
         /// <summary>
-        /// Waits for any element matching the provided selectors to exist in the current tab of the web processor.
+        /// Waits for any element matching the provided XPaths to exist in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
-        void WaitForAnyElementToExist(bool waitIndefinetely, params By[] selectors);
+        void WaitForAnyElementToExist(bool waitIndefinetely, params string[] xpaths);
 
         /// <summary>
-        /// Waits for any element matching the provided selectors to exist in the current tab of the web processor.
+        /// Waits for any element matching the provided XPaths to exist in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="timeout">The timeout for waiting for any element to exist.</param>
-        void WaitForAnyElementToExist(TimeSpan timeout, params By[] selectors);
+        void WaitForAnyElementToExist(TimeSpan timeout, params string[] xpaths);
 
         /// <summary>
-        /// Waits for all elements matching the provided selectors to exist in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to exist in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
-        void WaitForAllElementsToExist(params By[] selectors);
+        /// <param name="xpaths">The XPaths to match elements against.</param>
+        void WaitForAllElementsToExist(params string[] xpaths);
 
         /// <summary>
-        /// Waits for all elements matching the provided selectors to exist in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to exist in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
-        void WaitForAllElementsToExist(bool waitIndefinetely, params By[] selectors);
+        void WaitForAllElementsToExist(bool waitIndefinetely, params string[] xpaths);
 
         /// <summary>
-        /// Waits for all elements matching the provided selectors to exist in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to exist in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="timeout">The timeout for waiting for all elements to exist.</param>
-        void WaitForAllElementsToExist(TimeSpan timeout, params By[] selectors);
+        void WaitForAllElementsToExist(TimeSpan timeout, params string[] xpaths);
 
         /// <summary>
-        /// Waits for any element matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for any element matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
-        void WaitForAnyElementToBeVisible(params By[] selectors);
+        /// <param name="xpaths">The XPaths to match elements against.</param>
+        void WaitForAnyElementToBeVisible(params string[] xpaths);
 
         /// <summary>
-        /// Waits for any element matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for any element matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
-        void WaitForAnyElementToBeVisible(bool waitIndefinetely, params By[] selectors);
+        void WaitForAnyElementToBeVisible(bool waitIndefinetely, params string[] xpaths);
 
         /// <summary>
-        /// Waits for any element matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for any element matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="timeout">The timeout for waiting for any element to be visible.</param>
-        void WaitForAnyElementToBeVisible(TimeSpan timeout, params By[] selectors);
+        void WaitForAnyElementToBeVisible(TimeSpan timeout, params string[] xpaths);
 
         /// <summary>
-        /// Waits for all elements matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
-        void WaitForAllElementsToBeVisible(params By[] selectors);
+        /// <param name="xpaths">The XPaths to match elements against.</param>
+        void WaitForAllElementsToBeVisible(params string[] xpaths);
 
         /// <summary>
-        /// Waits for all elements matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
-        void WaitForAllElementsToBeVisible(bool waitIndefinetely, params By[] selectors);
+        void WaitForAllElementsToBeVisible(bool waitIndefinetely, params string[] xpaths);
 
         /// <summary>
-        /// Waits for all elements matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="timeout">The timeout for waiting for all elements to be visible.</param>
-        void WaitForAllElementsToBeVisible(TimeSpan timeout, params By[] selectors);
+        void WaitForAllElementsToBeVisible(TimeSpan timeout, params string[] xpaths);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to exist in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to exist in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
-        void WaitForElementToExist(By selector);
+        /// <param name="xpath">The XPath to match the element against.</param>
+        void WaitForElementToExist(string xpath);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to exist in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to exist in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
-        void WaitForElementToExist(By selector, bool waitIndefinetely);
+        void WaitForElementToExist(string xpath, bool waitIndefinetely);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to exist in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to exist in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for waiting for the element to exist.</param>
-        void WaitForElementToExist(By selector, TimeSpan timeout);
+        void WaitForElementToExist(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to disappear in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to disappear in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
-        void WaitForElementToDisappear(By selector);
+        /// <param name="xpath">The XPath to match the element against.</param>
+        void WaitForElementToDisappear(string xpath);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to disappear in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to disappear in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
-        void WaitForElementToDisappear(By selector, bool waitIndefinetely);
+        void WaitForElementToDisappear(string xpath, bool waitIndefinetely);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to disappear in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to disappear in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for waiting for the element to disappear.</param>
-        void WaitForElementToDisappear(By selector, TimeSpan timeout);
+        void WaitForElementToDisappear(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to be visible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
-        void WaitForElementToBeVisible(By selector);
+        /// <param name="xpath">The XPath to match the element against.</param>
+        void WaitForElementToBeVisible(string xpath);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to be visible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
-        void WaitForElementToBeVisible(By selector, bool waitIndefinetely);
+        void WaitForElementToBeVisible(string xpath, bool waitIndefinetely);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to be visible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for waiting for the element to be visible.</param>
-        void WaitForElementToBeVisible(By selector, TimeSpan timeout);
+        void WaitForElementToBeVisible(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to be invisible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be invisible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
-        void WaitForElementToBeInvisible(By selector);
+        /// <param name="xpath">The XPath to match the element against.</param>
+        void WaitForElementToBeInvisible(string xpath);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to be invisible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be invisible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
-        void WaitForElementToBeInvisible(By selector, bool waitIndefinetely);
+        void WaitForElementToBeInvisible(string xpath, bool waitIndefinetely);
 
         /// <summary>
-        /// Waits for an element matching the provided selector to be invisible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be invisible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for waiting for the element to be invisible.</param>
-        void WaitForElementToBeInvisible(By selector, TimeSpan timeout);
+        void WaitForElementToBeInvisible(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Checks if all elements matching the provided selectors exist in the current tab of the web processor.
+        /// Checks if all elements matching the provided XPaths exist in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <returns>True if all elements exist, false otherwise.</returns>
-        bool DoAllElementsExist(params By[] selectors);
+        bool DoAllElementsExist(params string[] xpaths);
 
         /// <summary>
-        /// Checks if any element matching the provided selectors exists in the current tab of the web processor.
+        /// Checks if any element matching the provided XPaths exists in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <returns>True if any element exists, false otherwise.</returns>
-        bool DoesAnyElementExist(params By[] selectors);
+        bool DoesAnyElementExist(params string[] xpaths);
         /// <summary>
-        /// Checks if an element matching the provided selector exists in the current tab of the web processor.
+        /// Checks if an element matching the provided XPath exists in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>True if the element exists, false otherwise.</returns>
-        bool DoesElementExist(By selector);
+        bool DoesElementExist(string xpath);
 
         /// <summary>
-        /// Checks if all elements matching the provided selectors are visible in the current tab of the web processor.
+        /// Checks if all elements matching the provided XPaths are visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <returns>True if all elements are visible, false otherwise.</returns>
-        bool AreAllElementsVisible(params By[] selectors);
+        bool AreAllElementsVisible(params string[] xpaths);
 
         /// <summary>
-        /// Checks if any element matching the provided selectors is visible in the current tab of the web processor.
+        /// Checks if any element matching the provided XPaths is visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
+        /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <returns>True if any element is visible, false otherwise.</returns>
-        bool IsAnyElementVisible(params By[] selectors);
+        bool IsAnyElementVisible(params string[] xpaths);
 
         /// <summary>
-        /// Checks if an element matching the provided selector is visible in the current tab of the web processor.
+        /// Checks if an element matching the provided XPath is visible in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>True if the element is visible, false otherwise.</returns>
-        bool IsElementVisible(By selector);
+        bool IsElementVisible(string xpath);
 
         /// <summary>
-        /// Moves the mouse cursor to the first element matching the provided selector in the current tab of the web processor.
+        /// Moves the mouse cursor to the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
-        void MoveToElement(By selector);
+        /// <param name="xpath">The XPath to match the element against.</param>
+        void MoveToElement(string xpath);
 
         /// <summary>
-        /// Moves the mouse cursor to the first element matching the provided selector in the current tab of the web processor.
+        /// Moves the mouse cursor to the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for moving to the element.</param>
-        void MoveToElement(By selector, TimeSpan timeout);
+        void MoveToElement(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Clicks on any of the elements matching the provided selectors in the current tab of the web processor.
+        /// Clicks on any of the elements matching the provided XPaths in the current tab of the web processor.
         /// </summary>
-        /// <param name="selectors">The selectors to match elements against.</param>
-        void ClickAny(params By[] selectors);
+        /// <param name="xpaths">The XPaths to match elements against.</param>
+        void ClickAny(params string[] xpaths);
 
         /// <summary>
-        /// Clicks on the first element matching the provided selector in the current tab of the web processor.
+        /// Clicks on the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
-        void Click(By selector);
+        /// <param name="xpath">The XPath to match the element against.</param>
+        void Click(string xpath);
 
         /// <summary>
-        /// Clicks on the first element matching the provided selector in the current tab of the web processor.
+        /// Clicks on the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for clicking the element.</param>
-        void Click(By selector, TimeSpan timeout);
+        void Click(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Clicks on the first element matching the provided selector in the current tab of the web processor.
+        /// Clicks on the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="status">The status to wait for after clicking.</param>
-        void UpdateCheckbox(By selector, bool status);
+        void UpdateCheckbox(string xpath, bool status);
 
         /// <summary>
-        /// Clicks on the first element matching the provided selector in the current tab of the web processor.
+        /// Clicks on the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the element against.</param>
+        /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="status">The status to wait for after clicking.</param>
         /// <param name="timeout">The timeout for clicking the element.</param>
-        void UpdateCheckbox(By selector, bool status, TimeSpan timeout);
+        void UpdateCheckbox(string xpath, bool status, TimeSpan timeout);
 
         /// <summary>
-        /// Selects an option by index in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by index in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the select element against.</param>
+        /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="index">The index of the option to select.</param>
-        void SelectOptionByIndex(By selector, int index);
+        void SelectOptionByIndex(string xpath, int index);
 
         /// <summary>
-        /// Selects an option by index in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by index in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the select element against.</param>
+        /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="index">The index of the option to select.</param>
         /// <param name="timeout">The timeout for selecting the option.</param>
-        void SelectOptionByIndex(By selector, int index, TimeSpan timeout);
+        void SelectOptionByIndex(string xpath, int index, TimeSpan timeout);
 
         /// <summary>
-        /// Selects an option by value in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by value in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the select element against.</param>
+        /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="value">The value of the option to select.</param>
-        void SelectOptionByValue(By selector, object value);
+        void SelectOptionByValue(string xpath, object value);
 
         /// <summary>
-        /// Selects an option by value in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by value in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the select element against.</param>
+        /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="value">The value of the option to select.</param>
         /// <param name="timeout">The timeout for selecting the option.</param>
-        void SelectOptionByValue(By selector, object value, TimeSpan timeout);
+        void SelectOptionByValue(string xpath, object value, TimeSpan timeout);
 
         /// <summary>
-        /// Selects an option by text in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by text in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the select element against.</param>
+        /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="text">The text of the option to select.</param>
-        void SelectOptionByText(By selector, string text);
+        void SelectOptionByText(string xpath, string text);
 
         /// <summary>
-        /// Selects an option by text in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by text in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the select element against.</param>
+        /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="text">The text of the option to select.</param>
         /// <param name="timeout">The timeout for selecting the option.</param>
-        void SelectOptionByText(By selector, string text, TimeSpan timeout);
+        void SelectOptionByText(string xpath, string text, TimeSpan timeout);
 
         /// <summary>
-        /// Selects a random option in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects a random option in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the select element against.</param>
-        void SelectRandomOption(By selector);
+        /// <param name="xpath">The XPath to match the select element against.</param>
+        void SelectRandomOption(string xpath);
 
         /// <summary>
-        /// Selects a random option in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects a random option in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
-        /// <param name="selector">The selector to match the select element against.</param>
+        /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="timeout">The timeout for selecting the option.</param>
-        void SelectRandomOption(By selector, TimeSpan timeout);
+        void SelectRandomOption(string xpath, TimeSpan timeout);
     }
 }
