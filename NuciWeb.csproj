@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>NuciWeb</RootNamespace>
-    <Version>3.0.1</Version>
+    <Version>4.0.0</Version>
     <Description>Web automation abstraction library.</Description>
     <Authors>Horațiu Mlendea</Authors>
     <Copyright>Copyright 2026 © Horațiu Mlendea</Copyright>
