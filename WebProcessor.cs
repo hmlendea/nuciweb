@@ -875,7 +875,7 @@ namespace NuciWeb
         public IList<string> GetTextOfMany(string xpath)
             => GetTextOfMany(xpath, DefaultTimeout);
         /// <summary>
-        /// Gets the text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
@@ -883,7 +883,7 @@ namespace NuciWeb
         public IList<string> GetTextOfMany(string xpath, bool retryOnDomFailure)
             => GetTextOfMany(xpath, DefaultTimeout, retryOnDomFailure);
         /// <summary>
-        /// Gets the text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the text.</param>
@@ -891,7 +891,7 @@ namespace NuciWeb
         public IList<string> GetTextOfMany(string xpath, TimeSpan timeout)
             => GetTextOfMany(xpath, timeout, false);
         /// <summary>
-        /// Gets the text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the text.</param>
@@ -914,14 +914,14 @@ namespace NuciWeb
             TimeSpan timeout);
 
         /// <summary>
-        /// Gets the selected text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the selected text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>The selected text of the first matching element.</returns>
         public string GetSelectedText(string xpath)
             => GetSelectedText(xpath, DefaultTimeout);
         /// <summary>
-        /// Gets the selected text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the selected text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
@@ -929,7 +929,7 @@ namespace NuciWeb
         public string GetSelectedText(string xpath, bool retryOnDomFailure)
             => GetSelectedText(xpath, DefaultTimeout, retryOnDomFailure);
         /// <summary>
-        /// Gets the selected text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the selected text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
@@ -937,7 +937,7 @@ namespace NuciWeb
         public string GetSelectedText(string xpath, TimeSpan timeout)
             => GetSelectedText(xpath, timeout, false);
         /// <summary>
-        /// Gets the selected text of the first element matching the selector in the current tab of the web processor.
+        /// Gets the selected text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
@@ -957,14 +957,14 @@ namespace NuciWeb
         }
 
         /// <summary>
-        /// Gets the selected text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the selected text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <returns>A list of selected text of all matching elements.</returns>
         public IList<string> GetSelectedTextOfMany(string xpath)
             => GetSelectedTextOfMany(xpath, DefaultTimeout);
         /// <summary>
-        /// Gets the selected text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the selected text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
@@ -972,7 +972,7 @@ namespace NuciWeb
         public IList<string> GetSelectedTextOfMany(string xpath, bool retryOnDomFailure)
             => GetSelectedTextOfMany(xpath, DefaultTimeout, retryOnDomFailure);
         /// <summary>
-        /// Gets the selected text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the selected text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
@@ -980,7 +980,7 @@ namespace NuciWeb
         public IList<string> GetSelectedTextOfMany(string xpath, TimeSpan timeout)
             => GetSelectedTextOfMany(xpath, DefaultTimeout, false);
         /// <summary>
-        /// Gets the selected text of all elements matching the selector in the current tab of the web processor.
+        /// Gets the selected text of all elements matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
@@ -1003,14 +1003,14 @@ namespace NuciWeb
             TimeSpan timeout);
 
         /// <summary>
-        /// Sets the value of the first element matching the selector in the current tab of the web processor.
+        /// Sets the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="text">The text to set as the value.</param>
         public void SetText(string xpath, string text)
             => SetText(xpath, text, DefaultTimeout);
         /// <summary>
-        /// Sets the value of the first element matching the selector in the current tab of the web processor.
+        /// Sets the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="text">The text to set as the value.</param>
@@ -1020,14 +1020,14 @@ namespace NuciWeb
         protected abstract void PerformSetText(string xpath, string text, TimeSpan timeout);
 
         /// <summary>
-        /// Appends text to the value of the first element matching the selector in the current tab of the web processor.
+        /// Appends text to the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="text">The text to append to the value.</param>
         public void AppendText(string xpath, string text)
             => AppendText(xpath, text, DefaultTimeout);
         /// <summary>
-        /// Appends text to the value of the first element matching the selector in the current tab of the web processor.
+        /// Appends text to the value of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="text">The text to append to the value.</param>
@@ -1036,13 +1036,13 @@ namespace NuciWeb
             => SetText(xpath, GetValue(xpath, timeout) + text, timeout);
 
         /// <summary>
-        /// Clears the text of the first element matching the selector in the current tab of the web processor.
+        /// Clears the text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         public void ClearText(string xpath)
             => ClearText(xpath, DefaultTimeout);
         /// <summary>
-        /// Clears the text of the first element matching the selector in the current tab of the web processor.
+        /// Clears the text of the first element matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for clearing the text.</param>
@@ -1050,7 +1050,7 @@ namespace NuciWeb
             => SetText(xpath, string.Empty, timeout);
 
         /// <summary>
-        /// Checks if the first element matching the selector has a specific class in the current tab of the web processor.
+        /// Checks if the first element matching the XPath has a specific class in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="className">The class name to check for.</param>
@@ -1058,7 +1058,7 @@ namespace NuciWeb
         public bool HasClass(string xpath, string className)
             => HasClass(xpath, className, DefaultTimeout);
         /// <summary>
-        /// Checks if the first element matching the selector has a specific class in the current tab of the web processor.
+        /// Checks if the first element matching the XPath has a specific class in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="className">The class name to check for.</param>
@@ -1068,14 +1068,14 @@ namespace NuciWeb
             => GetClasses(xpath, timeout).Contains(className);
 
         /// <summary>
-        /// Checks if the first element matching the selector is selected in the current tab of the web processor.
+        /// Checks if the first element matching the XPath is selected in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>True if the element is selected, false otherwise.</returns>
         public bool IsSelected(string xpath)
             => IsSelected(xpath, DefaultTimeout);
         /// <summary>
-        /// Checks if the first element matching the selector is selected in the current tab of the web processor.
+        /// Checks if the first element matching the XPath is selected in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for checking if the element is selected.</param>
@@ -1117,14 +1117,14 @@ namespace NuciWeb
         protected abstract void PerformWait(TimeSpan timeSpan);
 
         /// <summary>
-        /// Waits for the text length of the first element matching the selector to reach a specified length in the current tab of the web processor.
+        /// Waits for the text length of the first element matching the XPath to reach a specified length in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="length">The length to wait for.</param>
         public void WaitForTextLength(string xpath, int length)
             => WaitForTextLength(xpath, length, DefaultTimeout);
         /// <summary>
-        /// Waits for the text length of the first element matching the selector to reach a specified length in the current tab of the web processor.
+        /// Waits for the text length of the first element matching the XPath to reach a specified length in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="length">The length to wait for.</param>
@@ -1141,7 +1141,7 @@ namespace NuciWeb
             }
         }
         /// <summary>
-        /// Waits for the text length of the first element matching the selector to reach a specified length in the current tab of the web processor.
+        /// Waits for the text length of the first element matching the XPath to reach a specified length in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="length">The length to wait for.</param>
@@ -1207,13 +1207,13 @@ namespace NuciWeb
         }
 
         /// <summary>
-        /// Waits for all elements matching the provided selectors to exist in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to exist in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         public void WaitForAllElementsToExist(params string[] xpaths)
             => WaitForAllElementsToExist(DefaultTimeout, xpaths);
         /// <summary>
-        /// Waits for all elements matching the provided selectors to exist in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to exist in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
@@ -1229,7 +1229,7 @@ namespace NuciWeb
             }
         }
         /// <summary>
-        /// Waits for all elements matching the provided selectors to exist in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to exist in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="timeout">The timeout for waiting for all elements to exist.</param>
@@ -1246,13 +1246,13 @@ namespace NuciWeb
         }
 
         /// <summary>
-        /// Waits for any element matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for any element matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         public void WaitForAnyElementToBeVisible(params string[] xpaths)
             => WaitForAnyElementToBeVisible(DefaultTimeout, xpaths);
         /// <summary>
-        /// Waits for any element matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for any element matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
@@ -1268,7 +1268,7 @@ namespace NuciWeb
             }
         }
         /// <summary>
-        /// Waits for any element matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for any element matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="timeout">The timeout for waiting for any element to be visible.</param>
@@ -1285,13 +1285,13 @@ namespace NuciWeb
         }
 
         /// <summary>
-        /// Waits for all elements matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         public void WaitForAllElementsToBeVisible(params string[] xpaths)
             => WaitForAllElementsToBeVisible(DefaultTimeout, xpaths);
         /// <summary>
-        /// Waits for all elements matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
@@ -1307,7 +1307,7 @@ namespace NuciWeb
             }
         }
         /// <summary>
-        /// Waits for all elements matching the provided selectors to be visible in the current tab of the web processor.
+        /// Waits for all elements matching the provided XPaths to be visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <param name="timeout">The timeout for waiting for all elements to be visible.</param>
@@ -1324,13 +1324,13 @@ namespace NuciWeb
         }
 
         /// <summary>
-        /// Waits for an element matching the provided selector to exist in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to exist in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         public void WaitForElementToExist(string xpath)
             => WaitForElementToExist(xpath, DefaultTimeout);
         /// <summary>
-        /// Waits for an element matching the provided selector to exist in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to exist in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
@@ -1346,7 +1346,7 @@ namespace NuciWeb
             }
         }
         /// <summary>
-        /// Waits for an element matching the provided selector to exist in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to exist in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for waiting for the element to exist.</param>
@@ -1363,13 +1363,13 @@ namespace NuciWeb
         }
 
         /// <summary>
-        /// Waits for an element matching the provided selector to disappear in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to disappear in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         public void WaitForElementToDisappear(string xpath)
             => WaitForElementToDisappear(xpath, DefaultTimeout);
         /// <summary>
-        /// Waits for an element matching the provided selector to disappear in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to disappear in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
@@ -1385,7 +1385,7 @@ namespace NuciWeb
             }
         }
         /// <summary>
-        /// Waits for an element matching the provided selector to disappear in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to disappear in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for waiting for the element to disappear.</param>
@@ -1402,13 +1402,13 @@ namespace NuciWeb
         }
 
         /// <summary>
-        /// Waits for an element matching the provided selector to be visible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         public void WaitForElementToBeVisible(string xpath)
             => WaitForElementToBeVisible(xpath, DefaultTimeout);
         /// <summary>
-        /// Waits for an element matching the provided selector to be visible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
@@ -1424,7 +1424,7 @@ namespace NuciWeb
             }
         }
         /// <summary>
-        /// Waits for an element matching the provided selector to be visible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for waiting for the element to be visible.</param>
@@ -1441,13 +1441,13 @@ namespace NuciWeb
         }
 
         /// <summary>
-        /// Waits for an element matching the provided selector to be invisible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be invisible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         public void WaitForElementToBeInvisible(string xpath)
             => WaitForElementToBeInvisible(xpath, DefaultTimeout);
         /// <summary>
-        /// Waits for an element matching the provided selector to be invisible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be invisible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="waitIndefinetely">Whether to wait indefinitely.</param>
@@ -1463,7 +1463,7 @@ namespace NuciWeb
             }
         }
         /// <summary>
-        /// Waits for an element matching the provided selector to be invisible in the current tab of the web processor.
+        /// Waits for an element matching the provided XPath to be invisible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for waiting for the element to be invisible.</param>
@@ -1480,14 +1480,14 @@ namespace NuciWeb
         }
 
         /// <summary>
-        /// Checks if all elements matching the provided selectors exist in the current tab of the web processor.
+        /// Checks if all elements matching the provided XPaths exist in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <returns>True if all elements exist, false otherwise.</returns>
         public bool DoAllElementsExist(params string[] xpaths)
             => xpaths.All(DoesElementExist);
         /// <summary>
-        /// Checks if any element matching the provided selectors exists in the current tab of the web processor.
+        /// Checks if any element matching the provided XPaths exists in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <returns>True if any element exists, false otherwise.</returns>
@@ -1495,7 +1495,7 @@ namespace NuciWeb
             => xpaths.Any(DoesElementExist);
 
         /// <summary>
-        /// Checks if an element matching the provided selector exists in the current tab of the web processor.
+        /// Checks if an element matching the provided XPath exists in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>True if the element exists, false otherwise.</returns>
@@ -1508,7 +1508,7 @@ namespace NuciWeb
         protected abstract bool PerformDoesElementExist(string xpath);
 
         /// <summary>
-        /// Checks if all elements matching the provided selectors are visible in the current tab of the web processor.
+        /// Checks if all elements matching the provided XPaths are visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <returns>True if all elements are visible, false otherwise.</returns>
@@ -1516,7 +1516,7 @@ namespace NuciWeb
             => xpaths.All(IsElementVisible);
 
         /// <summary>
-        /// Checks if any element matching the provided selectors is visible in the current tab of the web processor.
+        /// Checks if any element matching the provided XPaths is visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         /// <returns>True if any element is visible, false otherwise.</returns>
@@ -1524,7 +1524,7 @@ namespace NuciWeb
             => xpaths.Any(IsElementVisible);
 
         /// <summary>
-        /// Checks if an element matching the provided selector is visible in the current tab of the web processor.
+        /// Checks if an element matching the provided XPath is visible in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <returns>True if the element is visible, false otherwise.</returns>
@@ -1542,13 +1542,13 @@ namespace NuciWeb
         protected abstract bool PerformIsElementVisible(string xpath);
 
         /// <summary>
-        /// Moves the mouse cursor to the first element matching the provided selector in the current tab of the web processor.
+        /// Moves the mouse cursor to the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         public void MoveToElement(string xpath)
             => MoveToElement(xpath, DefaultTimeout);
         /// <summary>
-        /// Moves the mouse cursor to the first element matching the provided selector in the current tab of the web processor.
+        /// Moves the mouse cursor to the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for moving to the element.</param>
@@ -1557,7 +1557,7 @@ namespace NuciWeb
         protected abstract void PerformMoveToElement(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Clicks on any of the elements matching the provided selectors in the current tab of the web processor.
+        /// Clicks on any of the elements matching the provided XPaths in the current tab of the web processor.
         /// </summary>
         /// <param name="xpaths">The XPaths to match elements against.</param>
         public void ClickAny(params string[] xpaths)
@@ -1583,13 +1583,13 @@ namespace NuciWeb
         }
 
         /// <summary>
-        /// Clicks on the first element matching the provided selector in the current tab of the web processor.
+        /// Clicks on the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         public void Click(string xpath)
             => Click(xpath, DefaultTimeout);
         /// <summary>
-        /// Clicks on the first element matching the provided selector in the current tab of the web processor.
+        /// Clicks on the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for clicking the element.</param>
@@ -1598,14 +1598,14 @@ namespace NuciWeb
         protected abstract void PerformClick(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Clicks on the first element matching the provided selector in the current tab of the web processor.
+        /// Clicks on the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="status">The status to wait for after clicking.</param>
         public void UpdateCheckbox(string xpath, bool status)
             => UpdateCheckbox(xpath, status, DefaultTimeout);
         /// <summary>
-        /// Clicks on the first element matching the provided selector in the current tab of the web processor.
+        /// Clicks on the first element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="status">The status to wait for after clicking.</param>
@@ -1620,14 +1620,14 @@ namespace NuciWeb
         protected abstract bool PerformIsCheckboxChecked(string xpath, TimeSpan timeout);
 
         /// <summary>
-        /// Selects an option by index in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by index in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="index">The index of the option to select.</param>
         public void SelectOptionByIndex(string xpath, int index)
             => SelectOptionByIndex(xpath, index, DefaultTimeout);
         /// <summary>
-        /// Selects an option by index in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by index in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="index">The index of the option to select.</param>
@@ -1637,14 +1637,14 @@ namespace NuciWeb
         protected abstract void PerformSelectOptionByIndex(string xpath, int index, TimeSpan timeout);
 
         /// <summary>
-        /// Selects an option by value in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by value in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="value">The value of the option to select.</param>
         public void SelectOptionByValue(string xpath, object value)
             => SelectOptionByValue(xpath, value, DefaultTimeout);
         /// <summary>
-        /// Selects an option by value in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by value in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="value">The value of the option to select.</param>
@@ -1667,14 +1667,14 @@ namespace NuciWeb
         protected abstract void PerformSelectOptionByValue(string xpath, object value, TimeSpan timeout);
 
         /// <summary>
-        /// Selects an option by text in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by text in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="text">The text of the option to select.</param>
         public void SelectOptionByText(string xpath, string text)
             => SelectOptionByText(xpath, text, DefaultTimeout);
         /// <summary>
-        /// Selects an option by text in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects an option by text in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="text">The text of the option to select.</param>
@@ -1684,13 +1684,13 @@ namespace NuciWeb
         protected abstract void PerformSelectOptionByText(string xpath, string text, TimeSpan timeout);
 
         /// <summary>
-        /// Selects a random option in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects a random option in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the select element against.</param>
         public void SelectRandomOption(string xpath)
             => SelectRandomOption(xpath, DefaultTimeout);
         /// <summary>
-        /// Selects a random option in the first select element matching the provided selector in the current tab of the web processor.
+        /// Selects a random option in the first select element matching the provided XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the select element against.</param>
         /// <param name="timeout">The timeout for selecting the option.</param>
