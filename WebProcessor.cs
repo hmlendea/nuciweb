@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using NuciWeb.Utils;
 
 namespace NuciWeb
@@ -100,8 +101,6 @@ namespace NuciWeb
             PerformSwitchToTab(tab);
         }
 
-        protected abstract void PerformSwitchToTab(string tab);
-
         /// <summary>
         /// Creates a new tab in the web processor.
         /// </summary>
@@ -123,8 +122,6 @@ namespace NuciWeb
             return tab;
         }
 
-        protected abstract string PerformNewTab(string url);
-
         /// <summary>
         /// Closes the current tab in the web processor.
         /// </summary>
@@ -143,7 +140,6 @@ namespace NuciWeb
             PerformCloseTab(tab);
             Tabs.Remove(tab);
         }
-        protected abstract void PerformCloseTab(string tab);
 
         /// <summary>
         /// Navigates to the specified URL in the current tab of the web processor.
@@ -181,7 +177,6 @@ namespace NuciWeb
 
             PerformGoToUrl(url, httpRetries, retryDelay);
         }
-        protected abstract void PerformGoToUrl(string url, int httpRetries, TimeSpan retryDelay);
 
         /// <summary>
         /// Navigates to the specified iframe in the current tab of the web processor.
@@ -199,7 +194,6 @@ namespace NuciWeb
             SwitchToTab(CurrentTab);
             PerformSwitchToIframe(index);
         }
-        protected abstract void PerformSwitchToIframe(int index);
 
         /// <summary>
         /// Switches to the specified iframe in the current tab of the web processor.
@@ -229,14 +223,12 @@ namespace NuciWeb
                 }
             }
         }
-        protected abstract void PerformSwitchToIframe(string xpath);
 
         /// <summary>
         /// Refreshes the current tab in the web processor.
         /// </summary>
         public void Refresh()
             => PerformRefresh();
-        protected abstract void PerformRefresh();
 
         /// <summary>
         /// Executes a script in the context of the current tab in the web processor.
@@ -247,7 +239,6 @@ namespace NuciWeb
             SwitchToTab(CurrentTab);
             PerformExecuteScript(script);
         }
-        protected abstract string PerformExecuteScript(string script);
 
         /// <summary>
         /// Gets the value of a variable in the context of the current tab in the web processor.
@@ -272,7 +263,6 @@ namespace NuciWeb
         /// <param name="timeout">The timeout for accepting the alert.</param>
         public void AcceptAlert(TimeSpan timeout)
             => PerformAcceptAlert(timeout);
-        protected abstract void PerformAcceptAlert(TimeSpan timeout);
 
         /// <summary>
         /// Dismisses the current alert in the web processor.
@@ -285,7 +275,6 @@ namespace NuciWeb
         /// <param name="timeout">The timeout for dismissing the alert.</param>
         public void DismissAlert(TimeSpan timeout)
             => PerformDismissAlert(timeout);
-        protected abstract void PerformDismissAlert(TimeSpan timeout);
 
         /// <summary>
         /// Gets the HTML source of the current page of the web processor.
@@ -293,7 +282,6 @@ namespace NuciWeb
         /// <returns>The HTML source of the current page.</returns>
         public string GetPageSource()
             => PerformGetPageSource();
-        protected abstract string PerformGetPageSource();
 
         /// <summary>
         /// Gets the value of the specified attribute for the first element matching the XPath in the current tab of the web processor.
@@ -320,14 +308,14 @@ namespace NuciWeb
         /// <param name="timeout">The timeout for getting the attribute value.</param>
         /// <returns>The value of the attribute for the first matching element.</returns>
         public string GetAttribute(string xpath, string attribute, TimeSpan timeout)
-            => GetAttribute(xpath, attribute, DefaultTimeout, false);
+            => GetAttribute(xpath, attribute, timeout, false);
         /// <summary>
         /// Gets the value of the specified attribute for the first element matching the XPath in the current tab of the web processor.
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="attribute">The name of the attribute to get the value of.</param>
         /// <param name="timeout">The timeout for getting the attribute value.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The value of the attribute for the first matching element.</returns>
         public string GetAttribute(string xpath, string attribute, TimeSpan timeout, bool retryOnDomFailure)
         {
@@ -335,13 +323,12 @@ namespace NuciWeb
             {
                 return ExecutionUtils.RetryUntilTheResultIsNotNull(
                     this,
-                    () => PerformGetAttribute(xpath, attribute, timeout),
+                    () => PerformGetAttribute(xpath, attribute, timeout).FirstOrDefault(),
                     timeout);
             }
 
-            return PerformGetAttribute(xpath, attribute, timeout);
+            return PerformGetAttribute(xpath, attribute, timeout).FirstOrDefault();
         }
-        protected abstract string PerformGetAttribute(string xpath, string attribute, TimeSpan timeout);
 
         /// <summary>
         /// Gets the values of the specified attribute for all elements matching the XPath in the current tab of the web processor.
@@ -375,24 +362,24 @@ namespace NuciWeb
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="attribute">The name of the attribute to get the values of.</param>
         /// <param name="timeout">The timeout for getting the attribute values.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of values of the attribute for all matching elements.</returns>
-        public IList<string> GetAttributeOfMany(string xpath, string attribute, TimeSpan timeout, bool retryOnDomFailure)
+        public IList<string> GetAttributeOfMany(
+            string xpath,
+            string attribute,
+            TimeSpan timeout,
+            bool retryOnDomFailure)
         {
             if (retryOnDomFailure)
             {
                 return ExecutionUtils.RetryUntilTheResultIsNotNull<IList<string>>(
                     this,
-                    () => [.. PerformGetAttributeOfMany(xpath, attribute, timeout)],
+                    () => [.. PerformGetAttribute(xpath, attribute, timeout)],
                     timeout);
             }
 
-            return [.. PerformGetAttributeOfMany(xpath, attribute, timeout)];
+            return [.. PerformGetAttribute(xpath, attribute, timeout)];
         }
-        protected abstract IEnumerable<string> PerformGetAttributeOfMany(
-            string xpath,
-            string attribute,
-            TimeSpan timeout);
 
         /// <summary>
         /// Gets the class name of the first element matching the XPath in the current tab of the web processor.
@@ -422,7 +409,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the class name.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The class name of the first matching element.</returns>
         public string GetClass(string xpath, TimeSpan timeout, bool retryOnDomFailure)
             => GetAttribute(xpath, "class", timeout, retryOnDomFailure);
@@ -456,7 +443,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the class names.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of class names of all matching elements.</returns>
         public IList<string> GetClassOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure)
             => GetAttributeOfMany(xpath, "class", timeout, retryOnDomFailure);
@@ -489,7 +476,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the class names.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of class names of the first matching element.</returns>
         public IList<string> GetClasses(string xpath, TimeSpan timeout, bool retryOnDomFailure)
             => GetClass(xpath, timeout, retryOnDomFailure).Split(' ');
@@ -522,7 +509,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the hyperlink.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The hyperlink of the first matching element.</returns>
         public string GetHyperlink(string xpath, TimeSpan timeout, bool retryOnDomFailure)
             => GetAttribute(xpath, "href", timeout, retryOnDomFailure);
@@ -555,7 +542,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the hyperlinks.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of hyperlinks of all matching elements.</returns>
         public IList<string> GetHyperlinkOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure)
             => GetAttributeOfMany(xpath, "href", timeout, retryOnDomFailure);
@@ -588,7 +575,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the source.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The source of the first matching element.</returns>
         public string GetSource(string xpath, TimeSpan timeout, bool retryOnDomFailure)
             => GetAttribute(xpath, "src", timeout, retryOnDomFailure);
@@ -621,7 +608,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the sources.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of sources of all matching elements.</returns>
         public IList<string> GetSourceOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure)
             => GetAttributeOfMany(xpath, "src", timeout, retryOnDomFailure);
@@ -688,7 +675,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the styles.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of styles of all matching elements.</returns>
         public IList<string> GetStyleOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure)
             => GetAttributeOfMany(xpath, "style", timeout, retryOnDomFailure);
@@ -721,7 +708,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the ID.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The ID of the first matching element.</returns>
         public string GetId(string xpath, TimeSpan timeout, bool retryOnDomFailure)
             => GetAttribute(xpath, "id", timeout, retryOnDomFailure);
@@ -786,7 +773,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the value.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The value of the first matching element.</returns>
         public string GetValue(string xpath, TimeSpan timeout, bool retryOnDomFailure)
             => GetAttribute(xpath, "value", timeout, retryOnDomFailure);
@@ -852,7 +839,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the text.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The text of the first matching element.</returns>
         public string GetText(string xpath, TimeSpan timeout, bool retryOnDomFailure)
         {
@@ -895,7 +882,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the text.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of text of all matching elements.</returns>
         public IList<string> GetTextOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure)
         {
@@ -909,9 +896,6 @@ namespace NuciWeb
 
             return [.. PerformGetText(xpath, timeout)];
         }
-        protected abstract IEnumerable<string> PerformGetText(
-            string xpath,
-            TimeSpan timeout);
 
         /// <summary>
         /// Gets the selected text of the first element matching the XPath in the current tab of the web processor.
@@ -941,7 +925,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The selected text of the first matching element.</returns>
         public string GetSelectedText(string xpath, TimeSpan timeout, bool retryOnDomFailure)
         {
@@ -984,7 +968,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of selected text of all matching elements.</returns>
         public IList<string> GetSelectedTextOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure)
         {
@@ -998,9 +982,6 @@ namespace NuciWeb
 
             return [.. PerformGetSelectedText(xpath, timeout)];
         }
-        protected abstract IEnumerable<string> PerformGetSelectedText(
-            string xpath,
-            TimeSpan timeout);
 
         /// <summary>
         /// Sets the value of the first element matching the XPath in the current tab of the web processor.
@@ -1017,7 +998,6 @@ namespace NuciWeb
         /// <param name="timeout">The timeout for setting the value.</param>
         public void SetText(string xpath, string text, TimeSpan timeout)
             => PerformSetText(xpath, text, timeout);
-        protected abstract void PerformSetText(string xpath, string text, TimeSpan timeout);
 
         /// <summary>
         /// Appends text to the value of the first element matching the XPath in the current tab of the web processor.
@@ -1082,7 +1062,6 @@ namespace NuciWeb
         /// <returns>True if the element is selected, false otherwise.</returns>
         public bool IsSelected(string xpath, TimeSpan timeout)
             => PerformIsSelected(xpath, timeout);
-        protected abstract bool PerformIsSelected(string xpath, TimeSpan timeout);
 
         /// <summary>
         /// Waits for the default amount of time.
@@ -1112,9 +1091,8 @@ namespace NuciWeb
                 return;
             }
 
-            PerformWait(timeSpan);
+            Thread.Sleep(timeSpan);
         }
-        protected abstract void PerformWait(TimeSpan timeSpan);
 
         /// <summary>
         /// Waits for the text length of the first element matching the XPath to reach a specified length in the current tab of the web processor.
@@ -1505,7 +1483,6 @@ namespace NuciWeb
 
             return PerformDoesElementExist(xpath);
         }
-        protected abstract bool PerformDoesElementExist(string xpath);
 
         /// <summary>
         /// Checks if all elements matching the provided XPaths are visible in the current tab of the web processor.
@@ -1539,7 +1516,6 @@ namespace NuciWeb
 
             return PerformIsElementVisible(xpath);
         }
-        protected abstract bool PerformIsElementVisible(string xpath);
 
         /// <summary>
         /// Moves the mouse cursor to the first element matching the provided XPath in the current tab of the web processor.
@@ -1554,7 +1530,6 @@ namespace NuciWeb
         /// <param name="timeout">The timeout for moving to the element.</param>
         public void MoveToElement(string xpath, TimeSpan timeout)
             => PerformMoveToElement(xpath, timeout);
-        protected abstract void PerformMoveToElement(string xpath, TimeSpan timeout);
 
         /// <summary>
         /// Clicks on any of the elements matching the provided XPaths in the current tab of the web processor.
@@ -1595,7 +1570,6 @@ namespace NuciWeb
         /// <param name="timeout">The timeout for clicking the element.</param>
         public void Click(string xpath, TimeSpan timeout)
             => PerformClick(xpath, timeout);
-        protected abstract void PerformClick(string xpath, TimeSpan timeout);
 
         /// <summary>
         /// Clicks on the first element matching the provided XPath in the current tab of the web processor.
@@ -1617,7 +1591,6 @@ namespace NuciWeb
                 Click(xpath, timeout);
             }
         }
-        protected abstract bool PerformIsCheckboxChecked(string xpath, TimeSpan timeout);
 
         /// <summary>
         /// Selects an option by index in the first select element matching the provided XPath in the current tab of the web processor.
@@ -1634,7 +1607,6 @@ namespace NuciWeb
         /// <param name="timeout">The timeout for selecting the option.</param>
         public void SelectOptionByIndex(string xpath, int index, TimeSpan timeout)
             => PerformSelectOptionByIndex(xpath, index, timeout);
-        protected abstract void PerformSelectOptionByIndex(string xpath, int index, TimeSpan timeout);
 
         /// <summary>
         /// Selects an option by value in the first select element matching the provided XPath in the current tab of the web processor.
@@ -1664,7 +1636,6 @@ namespace NuciWeb
 
             PerformSelectOptionByValue(xpath, stringValue, timeout);
         }
-        protected abstract void PerformSelectOptionByValue(string xpath, object value, TimeSpan timeout);
 
         /// <summary>
         /// Selects an option by text in the first select element matching the provided XPath in the current tab of the web processor.
@@ -1681,7 +1652,6 @@ namespace NuciWeb
         /// <param name="timeout">The timeout for selecting the option.</param>
         public void SelectOptionByText(string xpath, string text, TimeSpan timeout)
             => PerformSelectOptionByText(xpath, text, timeout);
-        protected abstract void PerformSelectOptionByText(string xpath, string text, TimeSpan timeout);
 
         /// <summary>
         /// Selects a random option in the first select element matching the provided XPath in the current tab of the web processor.
@@ -1701,6 +1671,31 @@ namespace NuciWeb
 
             SelectOptionByIndex(xpath, option, timeout);
         }
+
+        protected abstract bool PerformDoesElementExist(string xpath);
+        protected abstract bool PerformIsCheckboxChecked(string xpath, TimeSpan timeout);
+        protected abstract bool PerformIsElementVisible(string xpath);
+        protected abstract bool PerformIsSelected(string xpath, TimeSpan timeout);
+        protected abstract IEnumerable<string> PerformGetAttribute(string xpath, string attribute, TimeSpan timeout);
+        protected abstract IEnumerable<string> PerformGetSelectedText(string xpath, TimeSpan timeout);
+        protected abstract IEnumerable<string> PerformGetText(string xpath, TimeSpan timeout);
         protected abstract int PerformGetSelectOptionsCount(string xpath, TimeSpan timeout);
+        protected abstract string PerformExecuteScript(string script);
+        protected abstract string PerformGetPageSource();
+        protected abstract string PerformNewTab(string url);
+        protected abstract void PerformAcceptAlert(TimeSpan timeout);
+        protected abstract void PerformClick(string xpath, TimeSpan timeout);
+        protected abstract void PerformCloseTab(string tab);
+        protected abstract void PerformDismissAlert(TimeSpan timeout);
+        protected abstract void PerformGoToUrl(string url, int httpRetries, TimeSpan retryDelay);
+        protected abstract void PerformMoveToElement(string xpath, TimeSpan timeout);
+        protected abstract void PerformRefresh();
+        protected abstract void PerformSelectOptionByIndex(string xpath, int index, TimeSpan timeout);
+        protected abstract void PerformSelectOptionByText(string xpath, string text, TimeSpan timeout);
+        protected abstract void PerformSelectOptionByValue(string xpath, object value, TimeSpan timeout);
+        protected abstract void PerformSetText(string xpath, string text, TimeSpan timeout);
+        protected abstract void PerformSwitchToIframe(int index);
+        protected abstract void PerformSwitchToIframe(string xpath);
+        protected abstract void PerformSwitchToTab(string tab);
     }
 }

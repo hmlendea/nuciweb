@@ -188,7 +188,7 @@ namespace NuciWeb
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="attribute">The name of the attribute to get the value of.</param>
         /// <param name="timeout">The timeout for getting the attribute value.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The value of the attribute for the first matching element.</returns>
         string GetAttribute(string xpath, string attribute, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -221,7 +221,7 @@ namespace NuciWeb
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="attribute">The name of the attribute to get the values of.</param>
         /// <param name="timeout">The timeout for getting the attribute values.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of values of the attribute for all matching elements.</returns>
         IList<string> GetAttributeOfMany(string xpath, string attribute, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -250,7 +250,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the class name.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The class name of the first matching element.</returns>
         string GetClass(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -279,7 +279,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the class names.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of class names of all matching elements.</returns>
         IList<string> GetClassOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -311,7 +311,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the class names.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of class names of the first matching element.</returns>
         IList<string> GetClasses(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -340,7 +340,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the hyperlink.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The hyperlink of the first matching element.</returns>
         string GetHyperlink(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -369,7 +369,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the hyperlinks.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of hyperlinks of all matching elements.</returns>
         IList<string> GetHyperlinkOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -401,7 +401,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the source.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The source of the first matching element.</returns>
         string GetSource(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -433,7 +433,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the sources.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of sources of all matching elements.</returns>
         IList<string> GetSourceOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -465,7 +465,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the style.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The style of the first matching element.</returns>
         string GetStyle(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -497,7 +497,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the styles.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of styles of all matching elements.</returns>
         IList<string> GetStyleOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -529,7 +529,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the ID.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The ID of the first matching element.</returns>
         string GetId(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -561,7 +561,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the IDs.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of IDs of all matching elements.</returns>
         IList<string> GetIdOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -592,7 +592,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the value.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The value of the first matching element.</returns>
         string GetValue(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -624,7 +624,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the values.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of values of all matching elements.</returns>
         IList<string> GetValueOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -656,7 +656,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the text.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The text of the first matching element.</returns>
         string GetText(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -688,7 +688,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the text.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of text of all matching elements.</returns>
         IList<string> GetTextOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -720,7 +720,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match the element against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>The selected text of the first matching element.</returns>
         string GetSelectedText(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
@@ -752,7 +752,7 @@ namespace NuciWeb
         /// </summary>
         /// <param name="xpath">The XPath to match elements against.</param>
         /// <param name="timeout">The timeout for getting the selected text.</param>
-        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param
+        /// <param name="retryOnDomFailure">Whether to retry on DOM failure.</param>
         /// <returns>A list of selected text of all matching elements.</returns>
         IList<string> GetSelectedTextOfMany(string xpath, TimeSpan timeout, bool retryOnDomFailure);
 
