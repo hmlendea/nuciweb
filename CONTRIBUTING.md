@@ -89,6 +89,8 @@ dotnet test NuciWeb.UnitTests/NuciWeb.UnitTests.csproj
 - Follow the documentation style guide.
 - Preview changes locally if possible.
 
+See the [documentation index](./docs/INDEX.md) for the repository's technical documentation.
+
 ## 🔒 Security
 
 Report security vulnerabilities per the [SECURITY.md](./SECURITY.md).
