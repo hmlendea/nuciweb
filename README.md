@@ -34,6 +34,10 @@ When doing so, please:
 
 See the [contributing guidelines](./CONTRIBUTING.md) for details on how to report issues, suggest enhancements, and submit changes.
 
+## 📚 Documentation
+
+See the [documentation index](./docs/INDEX.md) for architecture, API reference, behaviour, flows, testing, and maintenance guidance.
+
 ## 🔒 Security
 
 NuciWeb follows a coordinated disclosure policy for security vulnerabilities.
