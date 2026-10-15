@@ -6,6 +6,13 @@ namespace NuciWeb
     public static class Select
     {
         /// <summary>
+        /// Returns the provided XPath expression unchanged.
+        /// </summary>
+        /// <param name="xpath">The XPath expression.</param>
+        /// <returns>The same XPath expression.</returns>
+        public static string ByXPath(string xpath) => xpath;
+
+        /// <summary>
         /// Builds an XPath selector for elements with the specified class name.
         /// </summary>
         /// <param name="className">The class name to match.</param>
@@ -28,10 +35,17 @@ namespace NuciWeb
         public static string ByName(string name) => ByXPath($"//*[@{HtmlAttributeNames.Name}='{name}']");
 
         /// <summary>
-        /// Returns the provided XPath expression unchanged.
+        /// Builds an XPath selector for elements with the exact text content or value attribute.
         /// </summary>
-        /// <param name="xpath">The XPath expression.</param>
-        /// <returns>The same XPath expression.</returns>
-        public static string ByXPath(string xpath) => xpath;
+        /// <param name="value">The exact text content or value attribute to match.</param>
+        /// <returns>An XPath string that selects elements with the exact text content or value attribute.</returns>
+        public static string ByExactValue(string value) => ByXPath($"//*[text()='{value}' or @{HtmlAttributeNames.Value}='{value}']");
+
+        /// <summary>
+        /// Builds an XPath selector for elements containing the specified text content or value attribute.
+        /// </summary>
+        /// <param name="value">The text content or value attribute to search for.</param>
+        /// <returns>An XPath string that selects elements containing the text content or value attribute.</returns>
+        public static string ByPartialValue(string value) => ByXPath($"//*[contains(text(), '{value}') or contains(@{HtmlAttributeNames.Value}, '{value}')]");
     }
 }
