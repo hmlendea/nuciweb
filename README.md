@@ -34,6 +34,12 @@ When doing so, please:
 
 See the [contributing guidelines](./CONTRIBUTING.md) for details on how to report issues, suggest enhancements, and submit changes.
 
+## 🔒 Security
+
+NuciWeb follows a coordinated disclosure policy for security vulnerabilities.
+
+For information on reporting security vulnerabilities, see [SECURITY.md](./SECURITY.md).
+
 ## 📄 License
 
 This project is being distributed under the `GNU General Public License v3.0 or later`.

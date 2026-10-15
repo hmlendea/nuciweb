@@ -89,6 +89,10 @@ dotnet test NuciWeb.UnitTests/NuciWeb.UnitTests.csproj
 - Follow the documentation style guide.
 - Preview changes locally if possible.
 
+## 🔒 Security
+
+Report security vulnerabilities per the [SECURITY.md](./SECURITY.md).
+
 ## 📄 License
 
 By contributing, you agree that your contributions will be licensed under the GNU General Public License v3.0 or later.
