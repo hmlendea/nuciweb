@@ -93,6 +93,10 @@ dotnet test NuciWeb.UnitTests/NuciWeb.UnitTests.csproj
 
 Report security vulnerabilities per the [SECURITY.md](./SECURITY.md).
 
+## 📋 Code of Conduct
+
+This project follows the [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
+
 ## 📄 License
 
 By contributing, you agree that your contributions will be licensed under the GNU General Public License v3.0 or later.

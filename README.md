@@ -40,6 +40,10 @@ NuciWeb follows a coordinated disclosure policy for security vulnerabilities.
 
 For information on reporting security vulnerabilities, see [SECURITY.md](./SECURITY.md).
 
+## 📜 Code of Conduct
+
+This project follows the [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
+
 ## 📄 License
 
 This project is being distributed under the `GNU General Public License v3.0 or later`.
